@@ -18,6 +18,6 @@ class ClientTest {
 
     @Test
     void add() {
-        assert true;
+        assert false;
     }
 }
