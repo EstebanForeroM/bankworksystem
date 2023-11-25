@@ -18,14 +18,6 @@ class TextClientPersistencyTest {
 
     private TextClientPersistency clientPersistency;
 
-    public void createFileIfNotExists(Path pathToFile) throws IOException {
-        // Check if the path does not exist or if it's not a regular file
-        if (Files.notExists(pathToFile) || !Files.isRegularFile(pathToFile)) {
-            // Attempt to create a new file
-            Files.createFile(pathToFile);
-        }
-    }
-
     @BeforeEach
     public void setUp() throws IOException {
         clientPersistency = new TextClientPersistency("src/test/resources/", new ClientSerializer());
@@ -34,7 +26,7 @@ class TextClientPersistencyTest {
 
     @AfterEach
     public void tearDown() throws IOException {
-
+        clientPersistency.eraseAll();
     }
 
 

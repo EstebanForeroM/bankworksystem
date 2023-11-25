@@ -43,4 +43,7 @@ public class TextClientPersistency implements ClientRepository {
         textPersistency.addChangeListener(callback);
     }
 
+    public void eraseAll() {
+        textPersistency.eraseAll();
+    }
 }

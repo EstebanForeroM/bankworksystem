@@ -100,4 +100,10 @@ public class TextPersistency<T extends Identifiable> {
     private void notifyChangeListeners() {
         changeListeners.forEach(Runnable::run);
     }
+
+    public void eraseAll() {
+        objects.clear();
+        saveObjectsToFile();
+        notifyChangeListeners();
+    }
 }

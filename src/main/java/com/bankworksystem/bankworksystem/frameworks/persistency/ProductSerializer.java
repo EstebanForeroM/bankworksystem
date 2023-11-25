@@ -17,6 +17,7 @@ public class ProductSerializer implements Serializer<Product> {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(serializeGeneralProduct(product));
+        stringBuilder.append(serializeSpecificProduct(product));
 
         return stringBuilder.toString();
     }
@@ -36,6 +37,8 @@ public class ProductSerializer implements Serializer<Product> {
             return serializeAccount((Account) product);
         } else if (product instanceof CDT) {
             return serializeCDT((CDT) product);
+        } else if (product instanceof UninitializedProduct) {
+            return serializeUninitializedProduct((UninitializedProduct) product);
         } else {
             throw new IllegalArgumentException("Product is not a valid type");
         }
@@ -44,6 +47,11 @@ public class ProductSerializer implements Serializer<Product> {
     private String dateSerializer(Date date) {
         SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
         return formatter.format(date);
+    }
+
+    private String serializeUninitializedProduct(UninitializedProduct product) {
+        ProductType productType = product.getProductType();
+        return productType.getName();
     }
 
     private String serializeCDT(CDT product) {
@@ -62,6 +70,9 @@ public class ProductSerializer implements Serializer<Product> {
     public Product deserialize(String string) {
         String[] splitString = string.split(SEPARATOR);
 
+        if (splitString.length < 5)
+            throw new IllegalArgumentException("Invalid string format");
+
         ProductData productData = new ProductData();
 
         productData.setId(splitString[2])
@@ -77,9 +88,15 @@ public class ProductSerializer implements Serializer<Product> {
                 return deserializeAccount(productData ,splitString[5]);
             case "Card":
                 return deserializeCard(productData ,splitString[5]);
+            case "Uninitialized product":
+                return deserializeUninitializedProduct(productData, splitString[5]);
             default:
                 throw new IllegalArgumentException("Product is not a valid type");
         }
+    }
+
+    private Product deserializeUninitializedProduct(ProductData productData, String productType) {
+        return new UninitializedProduct(productData.getId(), productData.getOwnerId(), ProductType.getProductType(productType));
     }
 
     private Card deserializeCard(ProductData productData, String cardType) {

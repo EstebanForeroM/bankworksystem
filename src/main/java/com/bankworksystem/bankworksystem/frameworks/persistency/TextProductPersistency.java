@@ -42,4 +42,8 @@ public class TextProductPersistency implements ProductRepository {
     public void setChangeListener(Runnable callback) {
         textPersistency.addChangeListener(callback);
     }
+
+    public void eraseAll() {
+        textPersistency.eraseAll();
+    }
 }
