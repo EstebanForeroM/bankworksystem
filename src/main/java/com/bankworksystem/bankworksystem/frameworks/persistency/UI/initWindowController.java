@@ -34,6 +34,9 @@ public class initWindowController {
     private AnchorPane menuPanel;
 
     @FXML
+    private AnchorPane menuPanel1;
+
+    @FXML
     private AnchorPane principalPanel;
 
     @FXML
@@ -54,28 +57,20 @@ public class initWindowController {
     @FXML
     private void eventMenuPanel() {
         if (!isMenuPanelVisible) {
-            menuPanel.setOpacity(0.0);
 
             TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), menuPanel);
             translateTransition.setByX(+250);
             translateTransition.play();
 
-            FadeTransition fadeInTransition = new FadeTransition(Duration.seconds(1), menuPanel);
-            fadeInTransition.setToValue(1.0);
-            fadeInTransition.play();
-
             menuPanel.setVisible(true);
             isMenuPanelVisible = true;
         } else {
+
             TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(1), menuPanel);
             translateTransition1.setByX(-250);
             translateTransition1.play();
 
-            FadeTransition fadeOutTransition = new FadeTransition(Duration.seconds(1), menuPanel);
-            fadeOutTransition.setToValue(0.0);
-            fadeOutTransition.play();
-
-            fadeOutTransition.setOnFinished(e -> {
+            translateTransition1.setOnFinished(e -> {
                 menuPanel.setVisible(false);
                 isMenuPanelVisible = false;
             });
