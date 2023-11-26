@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="500.0" prefWidth="700.0" stylesheets="@styleWindows.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bankworksystem.bankworksystem.TransferentsWindow">
+   <children>
+      <ImageView fitHeight="500.0" fitWidth="700.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../../../../../Images/password.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="shangePassword" layoutX="-6.0" layoutY="176.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens" text="CHANGE PASSWORD" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="22.0" />
+         </font>
+      </Button>
+      <AnchorPane layoutX="34.0" layoutY="34.0" prefHeight="39.0" prefWidth="138.0" style="-fx-background-color: #12123A;" styleClass="panelNavigation2" stylesheets="@styleWindows.css">
+         <children>
+            <ImageView fx:id="pricipalWindow" fitHeight="30.0" fitWidth="30.0" layoutX="87.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../Downloads/work-from-home.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="returnWindow" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../Images/volver.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Label layoutX="130.0" layoutY="110.0" scaleX="1.5" scaleY="1.5" text="Type Of Product" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="typeOfProducts" layoutX="262.0" layoutY="106.0" prefHeight="25.0" prefWidth="309.0" />
+      <Button fx:id="buy" layoutX="-2.0" layoutY="257.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="233.0" styleClass="buttonsTransferens" text="BUY" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="25.0" />
+         </font>
+      </Button>
+      <Button fx:id="deposit" layoutX="-6.0" layoutY="335.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens" text="DEPOSIT" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="25.0" />
+         </font>
+      </Button>
+      <Button fx:id="withdrawals" layoutX="-6.0" layoutY="416.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens" text="WITHDRAWALS" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="25.0" />
+         </font>
+      </Button>
+      <Button fx:id="balance" layoutX="460.0" layoutY="287.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens2" text="BALANCE" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="25.0" />
+         </font>
+      </Button>
+      <Button fx:id="advance" layoutX="460.0" layoutY="383.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens2" text="ADVANCE" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="25.0" />
+         </font>
+      </Button>
+      <Button fx:id="payments" layoutX="460.0" layoutY="193.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="240.0" styleClass="buttonsTransferens2" text="PAYMENTS" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="25.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="490.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../Images/logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="562.0" layoutY="46.0" text="Name The Bank" textFill="#fcfcfc">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
