@@ -54,27 +54,25 @@ public class initWindowController {
     @FXML
     private void eventMenuPanel() {
         if (!isMenuPanelVisible) {
-            // Si el menuPanel no es visible, lo hacemos visible y lo desplazamos hacia la derecha
-            menuPanel.setOpacity(0.0);  // Hacemos que sea transparente al principio
+            menuPanel.setOpacity(0.0);
 
             TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), menuPanel);
             translateTransition.setByX(+250);
             translateTransition.play();
 
             FadeTransition fadeInTransition = new FadeTransition(Duration.seconds(1), menuPanel);
-            fadeInTransition.setToValue(1.0);  // Hacemos que la opacidad sea 1.0 al final
+            fadeInTransition.setToValue(1.0);
             fadeInTransition.play();
 
             menuPanel.setVisible(true);
             isMenuPanelVisible = true;
         } else {
-            // Si el menuPanel ya es visible, lo desplazamos hacia la izquierda y lo hacemos invisible
             TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(1), menuPanel);
             translateTransition1.setByX(-250);
             translateTransition1.play();
 
             FadeTransition fadeOutTransition = new FadeTransition(Duration.seconds(1), menuPanel);
-            fadeOutTransition.setToValue(0.0);  // Hacemos que la opacidad sea 0.0 al final
+            fadeOutTransition.setToValue(0.0);
             fadeOutTransition.play();
 
             fadeOutTransition.setOnFinished(e -> {
