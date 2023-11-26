@@ -8,12 +8,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="500.0" prefWidth="700.0" stylesheets="@styleWindows.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bankworksystem.bankworksystem.TransferentsWindow">
    <children>
       <ImageView fitHeight="500.0" fitWidth="700.0" pickOnBounds="true">
          <image>
-            <Image url="../../../../resources/Images/password.png" />
+            <Image url="@../../../Images/password.png" />
          </image>
       </ImageView>
       <Button fx:id="shangePassword" layoutX="-6.0" layoutY="176.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens" text="CHANGE PASSWORD" textFill="WHITE">
@@ -25,12 +24,12 @@
          <children>
             <ImageView fx:id="pricipalWindow" fitHeight="30.0" fitWidth="30.0" layoutX="87.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../../Downloads/work-from-home.png" />
+                  <Image url="@../../../Images/return.png" />
                </image>
             </ImageView>
             <ImageView fx:id="returnWindow" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="../../../../resources/Images/volver.png" />
+                  <Image url="@../../../Images/volver.png" />
                </image>
             </ImageView>
          </children>
@@ -73,7 +72,7 @@
       </Button>
       <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="490.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="../../../../resources/Images/logo.png" />
+            <Image url="@../../../Images/logo.png" />
          </image>
       </ImageView>
       <Label layoutX="562.0" layoutY="46.0" text="Name The Bank" textFill="#fcfcfc">

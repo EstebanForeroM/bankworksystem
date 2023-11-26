@@ -22,12 +22,12 @@
                      <children>
                         <ImageView fx:id="pricipalWindow" fitHeight="30.0" fitWidth="30.0" layoutX="87.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../../../../Downloads/work-from-home.png" />
+                              <Image url="@../../../Images/return.png" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="returnWindow" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="../../../../resources/Images/volver.png" />
+                              <Image url="@../../../Images/volver.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -55,12 +55,12 @@
                      </font></Button>
                   <ImageView fx:id="right" fitHeight="15.0" fitWidth="15.0" layoutX="10.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="../../../../resources/Images/Left.jpg" />
+                        <Image url="@../../../../resources/Images/Left.jpg" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="left" fitHeight="15.0" fitWidth="15.0" layoutX="220.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="../../../../resources/Images/Right.jpg" />
+                        <Image url="@../../../../resources/Images/Right.jpg" />
                      </image>
                   </ImageView>
                </children>

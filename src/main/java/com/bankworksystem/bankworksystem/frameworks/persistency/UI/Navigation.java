@@ -1,4 +1,4 @@
-package com.bankworksystem.bankworksystem;
+package com.bankworksystem.bankworksystem.frameworks.persistency.UI;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

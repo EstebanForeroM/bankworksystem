@@ -1,4 +1,4 @@
-package com.bankworksystem.bankworksystem;
+package com.bankworksystem.bankworksystem.frameworks.persistency.UI;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
