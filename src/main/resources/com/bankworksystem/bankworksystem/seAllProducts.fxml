@@ -23,7 +23,7 @@
             </ImageView>
             <ImageView fx:id="returnWindow" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Images/volver.png" />
+                  <Image url="../../../../resources/Images/volver.png" />
                </image>
             </ImageView>
          </children>

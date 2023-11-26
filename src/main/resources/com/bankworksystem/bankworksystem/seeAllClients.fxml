@@ -16,12 +16,12 @@
          <children>
             <ImageView fx:id="returnWindow" fitHeight="30.0" fitWidth="30.0" layoutX="15.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Images/volver.png" />
+                  <Image url="../../../../resources/Images/volver.png" />
                </image>
             </ImageView>
             <ImageView fx:id="principalWindow" fitHeight="40.0" fitWidth="45.0" layoutX="66.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Images/return.png" />
+                  <Image url="../../../../resources/Images/return.png" />
                </image>
             </ImageView>
          </children>

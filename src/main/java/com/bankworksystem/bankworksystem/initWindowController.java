@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class initWindowController {
+    public ImageView menu1;
     @FXML
     private Button managementClients;
 

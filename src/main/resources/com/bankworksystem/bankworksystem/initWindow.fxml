@@ -13,17 +13,17 @@
          <children>
             <ImageView fitHeight="500.0" fitWidth="700.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../../../../../Images/initWindow2.png" />
+                  <Image url="../../../../resources/Images/initWindow2.png" />
                </image>
             </ImageView>
             <ImageView fx:id="exit1" fitHeight="40.0" fitWidth="40.0" layoutX="650.0" layoutY="450.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Images/boton-salir-a-la-aplicacion.png" />
+                  <Image url="../../../../resources/Images/boton-salir-a-la-aplicacion.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="491.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Images/logo.png" />
+                  <Image url="../../../../resources/Images/logo.png" />
                </image>
             </ImageView>
             <Text fill="#fcf7f7" layoutX="560.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name The Bank" />
@@ -39,7 +39,7 @@
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../Images/team_7773662.png" />
+                                    <Image url="../../../../resources/Images/team_7773662.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -48,7 +48,7 @@
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../Images/Transferens.png" />
+                                    <Image url="../../../../resources/Images/Transferens.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -57,20 +57,20 @@
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../../../../Images/products.png" />
+                                    <Image url="../../../../resources/Images/products.png" />
                                  </image>
                               </ImageView>
                            </graphic>
                         </Button>
                         <ImageView fitHeight="50.0" fitWidth="60.0" layoutX="40.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../Images/logo.png" />
+                              <Image url="../../../../resources/Images/logo.png" />
                            </image>
                         </ImageView>
                         <Text fill="#fcfcfc" layoutX="103.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name the Bank" />
-                        <ImageView fx:id="menu" fitHeight="30.0" fitWidth="40.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="menu1" fitHeight="30.0" fitWidth="40.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../Images/iconMenu.png" />
+                              <Image url="../../../../resources/Images/iconMenu.png" />
                            </image>
                         </ImageView>
                      </children>
@@ -83,22 +83,22 @@
          <children>
             <ImageView fitHeight="500.0" fitWidth="700.0" pickOnBounds="true">
                <image>
-                  <Image url="@../../../../../../Images/initWindow2.png" />
+                  <Image url="../../../../resources/Images/initWindow2.png" />
                </image>
             </ImageView>
             <ImageView fx:id="menu" fitHeight="30.0" fitWidth="40.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Images/iconMenu.png" />
+                  <Image url="../../../../resources/Images/iconMenu.png" />
                </image>
             </ImageView>
             <ImageView fx:id="exit" fitHeight="40.0" fitWidth="40.0" layoutX="20.0" layoutY="429.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Images/boton-salir-a-la-aplicacion.png" />
+                  <Image url="../../../../resources/Images/boton-salir-a-la-aplicacion.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="510.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../Images/logo.png" />
+                  <Image url="../../../../resources/Images/logo.png" />
                </image>
             </ImageView>
             <Text fill="#fcf7f7" layoutX="579.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name The Bank" />
