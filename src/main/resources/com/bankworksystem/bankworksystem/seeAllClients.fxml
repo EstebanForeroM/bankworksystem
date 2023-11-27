@@ -26,7 +26,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <TableView layoutX="74.0" layoutY="166.0" prefHeight="320.0" prefWidth="553.0" styleClass="table-column" stylesheets="@styleWindows.css">
+      <TableView fx:id="tableClient" layoutX="74.0" layoutY="166.0" prefHeight="320.0" prefWidth="553.0" styleClass="table-column" stylesheets="@styleWindows.css">
         <columns>
           <TableColumn fx:id="columnID" prefWidth="150.0" text="ID" />
           <TableColumn fx:id="columnName" minWidth="0.0" prefWidth="266.0" text="Name" />

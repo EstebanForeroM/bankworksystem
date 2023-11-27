@@ -2,7 +2,7 @@ module com.bankworksystem.bankworksystem {
     requires javafx.controls;
     requires javafx.fxml;
 
-
+    opens com.bankworksystem.bankworksystem.entities to javafx.base;
     opens com.bankworksystem.bankworksystem to javafx.fxml;
     exports com.bankworksystem.bankworksystem;
     exports com.bankworksystem.bankworksystem.frameworks.UI;
