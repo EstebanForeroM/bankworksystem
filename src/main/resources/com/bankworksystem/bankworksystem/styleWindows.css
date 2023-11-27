@@ -90,10 +90,10 @@
 
 .check-box {
     -fx-font-size: 14px;
-    -fx-text-fill: #333333;
+    -fx-text-fill: #ffffff;
     -fx-padding: 5px;
-    -fx-background-color: #f2f2f2;
-    -fx-border-color: #a0a0a0;
+    -fx-background-color: linear-gradient(to bottom, #030d1c 0%, #1d437c 100%);
+    -fx-border-color: #0a032d;
     -fx-border-width: 2px;
     -fx-border-radius: 5px;
 }

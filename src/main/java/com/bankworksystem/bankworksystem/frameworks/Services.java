@@ -13,11 +13,10 @@ public class Services {
     static private ClientRepository clientRepository;
     static private ProductRepository productRepository;
     static private PasswordManager passwordManager;
-
     private static TokenAuthenticationService tokenAuthenticationService;
     private static ClientSearcher clientSearcher;
     private static ClientCreationService userCreationService;
-    private static ClientModificationService userModificationService;
+    private static ClientModificationService ClientModificationService;
     private static ProductSearcher productSearcher;
     private static ProductModificationService productModificationService;
     private static ProductCreationService productCreationService;
@@ -31,7 +30,7 @@ public class Services {
         passwordManager = new PasswordManager(clientRepository);
         clientSearcher = new ClientSearcher(clientRepository);
         userCreationService = new ClientCreationService(clientRepository, passwordManager);
-        userModificationService = new ClientModificationService(tokenAuthenticationService, clientRepository,
+        ClientModificationService = new ClientModificationService(tokenAuthenticationService, clientRepository,
                 passwordManager);
         productSearcher = new ProductSearcher(productRepository);
         productModificationService = new ProductModificationService(productRepository);
@@ -66,9 +65,9 @@ public class Services {
     }
 
     public static ClientModificationService getUserModificationService() {
-        if (userModificationService == null)
+        if (ClientModificationService == null)
             throw new RuntimeException("Services not initialized");
-        return userModificationService;
+        return ClientModificationService;
     }
 
     public static ProductSearcher getProductSearcher() {

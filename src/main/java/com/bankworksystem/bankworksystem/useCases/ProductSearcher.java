@@ -11,6 +11,8 @@ public class ProductSearcher {
 
     Set<Product> products;
 
+    private String productName;
+
     public ProductSearcher(ProductRepository productRepository) {
         this.productRepository = productRepository;
         productRepository.setChangeListener(this::onRepositoryChange);
@@ -35,6 +37,10 @@ public class ProductSearcher {
         }
 
         return productsById;
+    }
+
+    public String getProductName() {
+        return productName;
     }
 
     public Set<Product> getProductsByOwner(String ownerId) {
