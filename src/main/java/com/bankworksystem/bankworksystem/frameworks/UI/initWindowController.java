@@ -87,7 +87,7 @@ public class initWindowController {
         String fxml = "clientWindow.fxml";
         Node sourceNode = (Node) event.getSource();
         Navigation navigation = Navigation.getInstance();
-        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
+        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/"+fxml, sourceNode);
     }
 
     @FXML

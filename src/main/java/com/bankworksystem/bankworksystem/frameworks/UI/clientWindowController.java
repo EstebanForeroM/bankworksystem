@@ -12,11 +12,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Box;
 import javafx.scene.control.CheckBox;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +63,9 @@ public class clientWindowController {
 
     @FXML
     private ImageView returnWindow;
+
+    @FXML
+    private ImageView clientImage;
 
     @FXML
     private ImageView right;
@@ -143,18 +149,14 @@ public class clientWindowController {
     @FXML
     private void initialize() {
         actualClients = new ArrayList<>();
-
         Services.addOnClientAddedListener(this::clientListChanges);
-
         imagePath = "@../../../../../img/defaultProfile.png";
         Gender[] genders = Gender.values();
         String[] genderNames = new String[genders.length];
-
         for (int i = 0; i < genderNames.length; i++) {
             genderNames[i] = genders[i].getGenderName();
         }
         gender.getItems().addAll(genderNames);
-
         clientListChanges();
     }
 
@@ -185,7 +187,19 @@ public class clientWindowController {
 
     @FXML
     private void buttonSearchImg(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
 
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            imagePath = selectedFile.toURI().toString();
+            Image image = new Image(imagePath);
+            clientImage.setImage(image);
+        } else {
+            System.out.println("No file selected.");
+        }
     }
 
     @FXML
@@ -231,6 +245,42 @@ public class clientWindowController {
 
     @FXML
     private void buttonSaveChanges(ActionEvent event) {
+        String clientName = nameUser.getText();
+        String clientId= clientID.getText();
+        Gender clientGender = Gender.getGenderByName(gender.getValue());
+        String clientPassword = password.getText();
+
+        if (!Services.getClientSearcher().userExists(clientId)) {
+
+            Services.getUserCreationService().createClient(clientName, clientPassword, clientGender, clientId, imagePath);
+            Token clientToken =  Services.getTokenAuthenticationService().getToken(clientPassword);
+            addSelectedProducts(clientToken);
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("\"Error!This client already exists\"");
+            alert.showAndWait();
+            return;
+        }
+
+        try {
+            /*Services.getUserCreationService().createClient(clientName, clientPassword, clientGender, clientId, imagePath);
+            Token clientToken =  Services.getTokenAuthenticationService().getToken(clientPassword);
+            addSelectedProducts(clientToken);*/
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("\"Error!Client created successfully\"");
+            alert.showAndWait();
+
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("\"Error!Client created successfully\"");
+            alert.showAndWait();
+        }
         saveClient();
     }
 }
