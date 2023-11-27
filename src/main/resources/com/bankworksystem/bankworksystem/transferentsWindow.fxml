@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" stylesheets="@styleWindows.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bankworksystem.bankworksystem.frameworks.persistency.UI.transferenstController">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" stylesheets="@styleWindows.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bankworksystem.bankworksystem.frameworks.UI.transferenstController">
    <children>
       <ImageView fitHeight="500.0" fitWidth="700.0" pickOnBounds="true">
          <image>

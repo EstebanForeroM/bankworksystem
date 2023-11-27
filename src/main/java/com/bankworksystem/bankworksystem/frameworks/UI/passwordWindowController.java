@@ -1,38 +1,28 @@
-package com.bankworksystem.bankworksystem.frameworks.persistency.UI;
+package com.bankworksystem.bankworksystem.frameworks.UI;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-public class seeAllClientsController {
+public class passwordWindowController {
 
     @FXML
-    private TableColumn<?, ?> columnGender;
+    private Button enter;
 
     @FXML
-    private TableColumn<?, ?> columnID;
+    private ImageView exit;
 
     @FXML
-    private TableColumn<?, ?> columnName;
-
-    @FXML
-    private ChoiceBox<?> gender;
+    private TextField password;
 
     @FXML
     private ImageView pricipalWindow;
 
     @FXML
-    private ChoiceBox<?> products;
-
-    @FXML
     private ImageView returnWindow;
-
-    @FXML
-    private TextField searchByName;
 
     @FXML
     private void initialize() {

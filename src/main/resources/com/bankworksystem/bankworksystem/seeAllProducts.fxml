@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" styleClass="principalPanel" stylesheets="@styleWindows.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bankworksystem.bankworksystem.frameworks.persistency.UI.seeAllProductsController">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" styleClass="principalPanel" stylesheets="@styleWindows.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bankworksystem.bankworksystem.frameworks.UI.seeAllProductsController">
    <children>
       <AnchorPane layoutX="18.0" layoutY="24.0" prefHeight="39.0" prefWidth="138.0" styleClass="panelNavigation2" stylesheets="@styleWindows.css">
          <children>

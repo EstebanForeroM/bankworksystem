@@ -1,4 +1,4 @@
-package com.bankworksystem.bankworksystem.frameworks.persistency.UI;
+package com.bankworksystem.bankworksystem.frameworks.UI;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;

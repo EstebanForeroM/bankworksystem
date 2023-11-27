@@ -1,7 +1,5 @@
-package com.bankworksystem.bankworksystem.frameworks.persistency.UI;
+package com.bankworksystem.bankworksystem.frameworks.UI;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

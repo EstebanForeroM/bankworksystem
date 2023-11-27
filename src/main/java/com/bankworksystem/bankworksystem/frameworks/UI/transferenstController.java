@@ -1,48 +1,28 @@
-package com.bankworksystem.bankworksystem.frameworks.persistency.UI;
+package com.bankworksystem.bankworksystem.frameworks.UI;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Box;
 
-public class clientWindowController {
-
-    @FXML
-    private Box americanCard;
+public class transferenstController {
 
     @FXML
-    private Box cdt;
+    private Button advance;
 
     @FXML
-    private Button clean;
+    private Button balance;
 
     @FXML
-    private TextField clientID;
+    private Button buy;
 
     @FXML
-    private Box currentAccount;
+    private Button deposit;
 
     @FXML
-    private Button deleteUser;
-
-    @FXML
-    private Button editProfile;
-
-    @FXML
-    private ChoiceBox<?> gender;
-
-    @FXML
-    private ImageView left;
-
-    @FXML
-    private TextField nameUser;
-
-    @FXML
-    private TextField password;
+    private Button payments;
 
     @FXML
     private ImageView pricipalWindow;
@@ -51,22 +31,13 @@ public class clientWindowController {
     private ImageView returnWindow;
 
     @FXML
-    private ImageView right;
+    private Button shangePassword;
 
     @FXML
-    private Box sanvingsAccount;
+    private ChoiceBox<?> typeOfProducts;
 
     @FXML
-    private Button saveChanges;
-
-    @FXML
-    private Button searchImg;
-
-    @FXML
-    private Button seeAll;
-
-    @FXML
-    private Box visaCard;
+    private Button withdrawals;
 
     @FXML
     private void initialize() {
@@ -92,4 +63,5 @@ public class clientWindowController {
             navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
         });
     }
+
 }
