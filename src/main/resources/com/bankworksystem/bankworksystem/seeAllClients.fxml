@@ -10,18 +10,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" styleClass="principalPanel" stylesheets="@styleWindows.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bankworksystem.bankworksystem.SeeAllClients">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" styleClass="principalPanel" stylesheets="@styleWindows.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bankworksystem.bankworksystem.frameworks.persistency.UI.seeAllClientsController">
    <children>
       <AnchorPane layoutX="15.0" layoutY="7.0" prefHeight="40.0" prefWidth="129.0" styleClass="panelNavigation2">
          <children>
-            <ImageView fx:id="returnWindow" fitHeight="30.0" fitWidth="30.0" layoutX="15.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="pricipalWindow" fitHeight="30.0" fitWidth="30.0" layoutX="87.0" layoutY="5.0" pickOnBounds="true" onMouseClicked="#buttonImgPrincipalWindow" preserveRatio="true">
                <image>
-                  <Image url="@../../../../resources/Images/volver.png" />
+                  <Image url="@../../../Images/return.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="principalWindow" fitHeight="40.0" fitWidth="45.0" layoutX="66.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="returnWindow" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="5.0" pickOnBounds="true" onMouseClicked="#buttonImgReturnWindow" preserveRatio="true">
                <image>
-                  <Image url="@../../../../resources/Images/return.png" />
+                  <Image url="@../../../Images/volver.png" />
                </image>
             </ImageView>
          </children>

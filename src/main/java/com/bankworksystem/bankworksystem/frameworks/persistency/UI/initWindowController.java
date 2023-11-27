@@ -3,13 +3,16 @@ package com.bankworksystem.bankworksystem.frameworks.persistency.UI;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -19,7 +22,7 @@ public class initWindowController {
     private ImageView exit;
 
     @FXML
-    private Button managementClient;
+    private Button clientsManagement;
 
     @FXML
     private Button managementProducts;
@@ -46,11 +49,10 @@ public class initWindowController {
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     @FXML
-    public void initialize(MouseEvent mouseEvent) {
+    public void exit(MouseEvent mouseEvent) {
         exit.setOnMouseClicked(event -> System.exit(0));
         System.out.println("init");
     }
@@ -80,5 +82,29 @@ public class initWindowController {
     @FXML
     private void menuPanel(MouseEvent event) {
         eventMenuPanel();
+    }
+
+    @FXML
+    private void buttonmanagementClient(ActionEvent event) throws IOException {
+        String fxml = "clientWindow.fxml";
+        Node sourceNode = (Node) event.getSource();
+        Navigation navigation = Navigation.getInstance();
+        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
+    }
+
+    @FXML
+    private void buttonmanagementProducts(ActionEvent event) throws IOException {
+        String fxml = "productWindow.fxml";
+        Node sourceNode = (Node) event.getSource();
+        Navigation navigation = Navigation.getInstance();
+        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
+    }
+
+    @FXML
+    private void buttontransferenst(ActionEvent event) throws IOException {
+        String fxml = "passwordWindow.fxml";
+        Node sourceNode = (Node) event.getSource();
+        Navigation navigation = Navigation.getInstance();
+        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
     }
 }
