@@ -24,8 +24,8 @@ public class Services {
     private static DeletionService deletionService;
 
     public static void initializeServices() {
-        clientRepository = new TextClientPersistency("src\\data\\users", new ClientSerializer());
-        productRepository = new TextProductPersistency("src\\data\\products", new ProductSerializer());
+        clientRepository = new TextClientPersistency("src\\data\\", new ClientSerializer());
+        productRepository = new TextProductPersistency("src\\data\\", new ProductSerializer());
         tokenAuthenticationService = new TokenGenerator(new TokenValidator(), clientRepository);
         passwordManager = new PasswordManager(clientRepository);
         clientSearcher = new ClientSearcher(clientRepository);
