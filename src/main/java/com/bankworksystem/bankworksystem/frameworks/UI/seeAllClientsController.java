@@ -79,7 +79,7 @@ public class seeAllClientsController {
     }
 
     @FXML
-    private void searchByName() {
+    private void searchByName(ActionEvent event) {
         String name = searchByName.getText();
         //filtered table
         Set<Client> clientsByName = Services.getClientSearcher().getClientsByName(name);
@@ -88,26 +88,15 @@ public class seeAllClientsController {
         tableClient.setItems(filteredClients);
     }
 
-    private void filterAndSetTable(Gender selectedGender) {
-        //Method that refresh the table
-        String genderName = selectedGender.getGenderName();
-        Set<Client> clientsByGender = Services.getClientSearcher().getClientsByGender(Gender.getGenderByName(genderName));
+    @FXML
+    private void searchForGender(ActionEvent event){
+
+        String selectedGender = gender.getValue();
+        // Convert the selected gender to the Gender enum (assuming you have such conversion logic)
+        Gender gender = Gender.getGenderByName(selectedGender);
+        Set<Client> clientsByGender = Services.getClientSearcher().getClientsByGender(Gender.getGenderByName(selectedGender));
         ObservableList<Client> filteredClients = FXCollections.observableArrayList(clientsByGender);
         tableClient.setItems(filteredClients);
-    }
-
-    @FXML
-    private void searchForGender(){
-        System.out.println("Me estoy ejecutando");
-        // Search item selected
-        Gender SGoption1 = Gender.MALE;
-        filterAndSetTable(SGoption1);
-
-        Gender SGoption2 = Gender.FEMALE;
-        filterAndSetTable(SGoption2);
-
-        Gender SGoption3 = Gender.FEMALE;
-        filterAndSetTable(SGoption3);
     }
 
     @FXML
@@ -121,7 +110,7 @@ public class seeAllClientsController {
             Set<Product> productsByType = Services.getProductSearcher().getProductsByType(ProductType.getProductType(selectedProductType));
             ObservableList<Product> filteredProducts = FXCollections.observableArrayList(productsByType);
             // Table refresh
-            //tableProduct.setItems(filteredProducts);
+            //tableClient.setItems(filteredProducts);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");

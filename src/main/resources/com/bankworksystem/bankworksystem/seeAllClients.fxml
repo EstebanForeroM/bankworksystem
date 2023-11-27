@@ -14,12 +14,12 @@
    <children>
       <AnchorPane layoutX="15.0" layoutY="7.0" prefHeight="40.0" prefWidth="129.0" styleClass="panelNavigation2">
          <children>
-            <ImageView fx:id="pricipalWindow" fitHeight="30.0" fitWidth="30.0" layoutX="87.0" layoutY="5.0" pickOnBounds="true" onMouseClicked="#buttonImgPrincipalWindow" preserveRatio="true">
+            <ImageView fx:id="pricipalWindow" fitHeight="30.0" fitWidth="30.0" layoutX="87.0" layoutY="5.0" onMouseClicked="#buttonImgPrincipalWindow" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../Images/return.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="returnWindow" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="5.0" pickOnBounds="true" onMouseClicked="#buttonImgReturnWindow" preserveRatio="true">
+            <ImageView fx:id="returnWindow" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="5.0" onMouseClicked="#buttonImgReturnWindow" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../Images/volver.png" />
                </image>
@@ -38,13 +38,13 @@
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="searchByName" layoutX="250.0" layoutY="60.0" prefHeight="26.0" prefWidth="338.0" styleClass="text_input" />
+      <TextField fx:id="searchByName" layoutX="250.0" layoutY="60.0" onAction="#searchByName" prefHeight="26.0" prefWidth="338.0" styleClass="text_input" />
       <Label layoutX="75.0" layoutY="112.0" text="Gender" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="gender" layoutX="155.0" layoutY="108.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="gender" layoutX="155.0" layoutY="108.0" prefWidth="150.0" onAction="#searchForGender" />
       <Label layoutX="342.0" layoutY="112.0" text="Products" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="20.0" />
