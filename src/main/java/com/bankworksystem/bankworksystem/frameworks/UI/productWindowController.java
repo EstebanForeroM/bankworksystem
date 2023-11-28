@@ -182,6 +182,5 @@ public class productWindowController {
         if (product instanceof CDT)
             termInMonths.setDisable(false);
     }
-
 }
 

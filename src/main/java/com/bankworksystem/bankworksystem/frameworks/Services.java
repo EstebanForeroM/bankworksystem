@@ -1,9 +1,6 @@
 package com.bankworksystem.bankworksystem.frameworks;
 
-import com.bankworksystem.bankworksystem.frameworks.persistency.ClientSerializer;
-import com.bankworksystem.bankworksystem.frameworks.persistency.ProductSerializer;
-import com.bankworksystem.bankworksystem.frameworks.persistency.TextClientPersistency;
-import com.bankworksystem.bankworksystem.frameworks.persistency.TextProductPersistency;
+import com.bankworksystem.bankworksystem.frameworks.persistency.*;
 import com.bankworksystem.bankworksystem.frameworks.validations.TokenGenerator;
 import com.bankworksystem.bankworksystem.frameworks.validations.TokenValidator;
 import com.bankworksystem.bankworksystem.useCases.*;
@@ -23,6 +20,8 @@ public class Services {
     private static TransactionService transactionService;
     private static DeletionService deletionService;
 
+    private static ImagePersistence imagePersistence;
+
     public static void initializeServices() {
         clientRepository = new TextClientPersistency("src\\data\\", new ClientSerializer());
         productRepository = new TextProductPersistency("src\\data\\", new ProductSerializer());
@@ -38,6 +37,8 @@ public class Services {
                 productSearcher);
         transactionService = new TransactionService(productRepository, tokenAuthenticationService);
         deletionService = new DeletionService(clientRepository, productRepository, productSearcher);
+        imagePersistence = new ImagePersistence("src\\data\\images\\");
+        deletionService.addOnClientDeletedListener(imagePersistence::deleteImage);
     }
 
     public static void addOnClientAddedListener(Runnable listener) {
@@ -68,6 +69,12 @@ public class Services {
         if (ClientModificationService == null)
             throw new RuntimeException("Services not initialized");
         return ClientModificationService;
+    }
+
+    public static ImagePersistence getImagePersistence() {
+        if (imagePersistence == null)
+            throw new RuntimeException("Services not initialized");
+        return imagePersistence;
     }
 
     public static ProductSearcher getProductSearcher() {
