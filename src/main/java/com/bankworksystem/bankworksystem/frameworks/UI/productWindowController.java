@@ -101,6 +101,8 @@ public class productWindowController {
 
         productModificationService.modifyProductBalance(productId, Double.parseDouble(balance.getText()));
         productModificationService.modifyProductOpeningDate(productId, convertLocalDateToDate(date.getValue()));
+
+        messageWindow.showSuccessMessage("Success", "Product modified");
     }
 
     private void initializeProduct(UninitializedProduct product) {
@@ -119,6 +121,7 @@ public class productWindowController {
                 Services.getProductCreationService().initializeAccount(product.getId(), convertLocalDateToDate(date.getValue()));
                 break;
         }
+        messageWindow.showSuccessMessage("Success", "Product created");
     }
 
     public Date convertLocalDateToDate(LocalDate localDate) {
@@ -178,10 +181,9 @@ public class productWindowController {
     private void updateProductSpecificUI(Product product) {
 
         termInMonths.setDisable(true);
-
+        numProduct.setText(this.selectedProduct.getId());
         if (product instanceof CDT)
             termInMonths.setDisable(false);
     }
-
 }
 
