@@ -81,8 +81,20 @@ public class seeAllClientsController {
     @FXML
     private void searchByName(ActionEvent event) {
         String name = searchByName.getText();
+
+        if (name == null || name.trim().isEmpty()) {
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "Please enter a valid name for search.");
+            return;
+        }
         //filtered table
         Set<Client> clientsByName = Services.getClientSearcher().getClientsByName(name);
+
+        if (clientsByName.isEmpty()) {
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "No clients found with the specified name.");
+            return;
+        }
         ObservableList<Client> filteredClients = FXCollections.observableArrayList(clientsByName);
         //table refresh
         tableClient.setItems(filteredClients);
@@ -90,11 +102,15 @@ public class seeAllClientsController {
 
     @FXML
     private void searchForGender(ActionEvent event){
-
         String selectedGender = gender.getValue();
         // Convert the selected gender to the Gender enum (assuming you have such conversion logic)
         Gender gender = Gender.getGenderByName(selectedGender);
         Set<Client> clientsByGender = Services.getClientSearcher().getClientsByGender(Gender.getGenderByName(selectedGender));
+        if (clientsByGender.isEmpty()) {
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "No clients found for the selected gender.");
+            return;
+        }
         ObservableList<Client> filteredClients = FXCollections.observableArrayList(clientsByGender);
         tableClient.setItems(filteredClients);
     }

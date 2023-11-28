@@ -40,6 +40,10 @@ public class ClientSearcher {
         return clients;
     }
 
+    public Set<Client> getAllClients() {
+        return new HashSet<>(clients);
+    }
+
     public List<Client> getClients() {
 
         List<Client> clients = new ArrayList<>();

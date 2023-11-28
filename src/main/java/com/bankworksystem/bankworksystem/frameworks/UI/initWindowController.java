@@ -1,17 +1,23 @@
 package com.bankworksystem.bankworksystem.frameworks.UI;
 
+import com.bankworksystem.bankworksystem.HelloApplication;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ResourceBundle;
 
 public class initWindowController {
@@ -84,11 +90,13 @@ public class initWindowController {
 
     @FXML
     private void buttonmanagementClient(ActionEvent event) throws IOException {
-        String fxml = "clientWindow.fxml";
-        Node sourceNode = (Node) event.getSource();
-        Navigation navigation = Navigation.getInstance();
-        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/"+fxml, sourceNode);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/bankworksystem/bankworksystem/clientWindow.fxml"));
+        Parent root = loader.load();
+
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        currentScene.setRoot(root);
     }
+
 
     @FXML
     private void buttonmanagementProducts(ActionEvent event) throws IOException {

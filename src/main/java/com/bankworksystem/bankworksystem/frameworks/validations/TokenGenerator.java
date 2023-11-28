@@ -31,7 +31,7 @@ public class TokenGenerator implements TokenAuthenticationService {
             tokenAuthenticator.addToken(token);
             return token;
         } else
-            throw new RuntimeException("Invalid password");
+            throw new IllegalArgumentException("Invalid password");
     }
 
     public void destroy(Token token) {

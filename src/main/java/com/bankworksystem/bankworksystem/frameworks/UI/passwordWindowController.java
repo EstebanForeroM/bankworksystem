@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import static com.bankworksystem.bankworksystem.frameworks.UI.validations.validateEnterPassword;
+import static com.bankworksystem.bankworksystem.frameworks.UI.validations.validatePassword;
+
 public class passwordWindowController {
 
     @FXML
@@ -36,18 +39,19 @@ public class passwordWindowController {
     }
 
     @FXML
-    private void buttonPassword(ActionEvent event) throws Exception {
-        String enteredPassword = password.getText();
-        try {
-            userToken = Services.getTokenAuthenticationService().getToken(enteredPassword);
-            String fxml = "transferentsWindow.fxml";
-            Node sourceNode = (Node) event.getSource();
-            Navigation navigation = Navigation.getInstance();
-            navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
-        } catch (Exception e) {
+    private void buttonPassword(ActionEvent event) {
+        String Password = password.getText();
+        userToken = Services.getTokenAuthenticationService().getToken(Password);
+        if (!validateEnterPassword(Password)) {
             MessageWindow messageWindow = new MessageWindow();
-            messageWindow.showErrorMessage("Error", "YOU PASSWORD IS WRONG");
+            messageWindow.showErrorMessage("Error", "Invalid password. Please enter a valid password.");
+            return;
         }
+        userToken = Services.getTokenAuthenticationService().getToken(Password);
+        String fxml = "transferentsWindow.fxml";
+        Node sourceNode = (Node) event.getSource();
+        Navigation navigation = Navigation.getInstance();
+        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
     }
 
     @FXML

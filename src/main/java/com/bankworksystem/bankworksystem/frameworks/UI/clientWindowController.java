@@ -23,9 +23,9 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-import static com.bankworksystem.bankworksystem.frameworks.UI.validations.validateClientID;
-import static com.bankworksystem.bankworksystem.frameworks.UI.validations.validateName;
+import static com.bankworksystem.bankworksystem.frameworks.UI.validations.*;
 
 public class clientWindowController {
 
@@ -46,9 +46,6 @@ public class clientWindowController {
 
     @FXML
     private Button deleteUser;
-
-    @FXML
-    private Button editProfile;
 
     @FXML
     private ChoiceBox<String> gender;
@@ -92,8 +89,6 @@ public class clientWindowController {
     private String imagePath;
 
     private List<Client> actualClients;
-
-    private int actualClientIndex = 0;
 
     private void clientListChanges() {
         actualClients = Services.getClientSearcher().getClients();
@@ -179,11 +174,6 @@ public class clientWindowController {
     }
 
     @FXML
-    private void buttonEditProfile(ActionEvent event) {
-
-    }
-
-    @FXML
     private void buttonSearchImg(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
@@ -232,6 +222,14 @@ public class clientWindowController {
 
     @FXML
     private void buttonSeeAll(ActionEvent event) {
+        Set<Client> allClients = Services.getClientSearcher().getAllClients();
+
+        if (allClients.isEmpty()) {
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "No clients found.");
+            return;
+        }
+
         String fxml = "seeAllClients.fxml";
         Node sourceNode = (Node) event.getSource();
         Navigation navigation = Navigation.getInstance();
@@ -252,7 +250,6 @@ public class clientWindowController {
         clientID.end();
     }
 
-
     @FXML
     private void buttonSaveChanges(ActionEvent event) {
         String clientName = nameUser.getText();
@@ -260,10 +257,15 @@ public class clientWindowController {
         Gender clientGender = Gender.getGenderByName(gender.getValue());
         String clientPassword = password.getText();
 
-        if (!clientName.isEmpty() && !clientId.isEmpty() && clientGender != null && !clientPassword.isEmpty()) {
+        if (validateAllFields(nameUser, clientID, password, null, null, gender)) {
+            if (clientGender == null) {
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.showErrorMessage("Error", "Invalid gender selected.");
+                return;
+            }
             if (!Services.getClientSearcher().userExists(clientId)) {
                 Services.getUserCreationService().createClient(clientName, clientPassword, clientGender, clientId, imagePath);
-                Token clientToken =  Services.getTokenAuthenticationService().getToken(clientPassword);
+                Token clientToken = Services.getTokenAuthenticationService().getToken(clientPassword);
                 addSelectedProducts(clientToken);
 
                 MessageWindow messageWindow = new MessageWindow();
@@ -272,10 +274,6 @@ public class clientWindowController {
             }
 
             try {
-                /*Services.getUserModificationService().modifyUser(clientId, clientName, clientPassword, clientGender, imagePath);
-                Token clientToken =  Services.getTokenAuthenticationService().getToken(clientPassword);
-                addSelectedProducts(clientToken);*/
-
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.showErrorMessage("Success", "Client modified successfully");
             } catch (Exception e) {
@@ -288,5 +286,4 @@ public class clientWindowController {
             messageWindow.showErrorMessage("Error", "Error! Please fill in all the required fields");
         }
     }
-
 }
