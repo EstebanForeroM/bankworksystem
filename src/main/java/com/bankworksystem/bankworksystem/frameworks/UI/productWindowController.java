@@ -17,7 +17,6 @@ import java.util.*;
 
 public class productWindowController {
 
-    public TextField clientId;
     @FXML
     private ImageView pricipalWindow;
 
@@ -44,6 +43,8 @@ public class productWindowController {
     private Button modify;
     @FXML
     private Button eliminate;
+
+    public TextField clientId;
 
     private boolean productLoaded = false;
     private String actualClientId;

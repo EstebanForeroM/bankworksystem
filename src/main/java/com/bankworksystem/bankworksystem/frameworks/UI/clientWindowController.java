@@ -23,6 +23,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.bankworksystem.bankworksystem.frameworks.UI.validations.validateName;
+
 public class clientWindowController {
 
     @FXML
@@ -102,11 +104,8 @@ public class clientWindowController {
         String clientPassword = password.getText();
 
         if (!Services.getClientSearcher().userExists(clientId)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("\"The client don't exists, you must create one client first\"");
-            alert.showAndWait();
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "The client don't exists, you must create one client first");
             return;
         }
 
@@ -119,11 +118,8 @@ public class clientWindowController {
             Services.getUserModificationService().modifyUserPhoto(clientToken, imagePath);
 
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("\"Error!\"");
-            alert.showAndWait();
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "Error!");
             return;
         }
     }
@@ -225,11 +221,8 @@ public class clientWindowController {
             Token token = Services.getTokenAuthenticationService().getToken(clientPassword);
             Services.getUserModificationService().modifyUser(token, clientName, clientPassword, clientGender, imagePath);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("\"Error!\"");
-            alert.showAndWait();
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "Error!");
             throw new RuntimeException(e);
         }
 
@@ -241,6 +234,24 @@ public class clientWindowController {
         Node sourceNode = (Node) event.getSource();
         Navigation navigation = Navigation.getInstance();
         navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
+    }
+
+    @FXML
+    private void validationName(ActionEvent event) {
+        String userName = nameUser.getText();
+        validateName(userName);
+    }
+
+    @FXML
+    private void validationId(ActionEvent event) {
+        String ClientID = clientID.getText();
+        validateName(ClientID);
+    }
+
+    @FXML
+    private void validationPassword(ActionEvent event) {
+        String ClientPassword = password.getText();
+        validateName(ClientPassword);
     }
 
     @FXML
@@ -256,11 +267,8 @@ public class clientWindowController {
             Token clientToken =  Services.getTokenAuthenticationService().getToken(clientPassword);
             addSelectedProducts(clientToken);
 
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("\"Error!This client already exists\"");
-            alert.showAndWait();
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "Error!This client already exists");
             return;
         }
 
@@ -268,18 +276,12 @@ public class clientWindowController {
             /*Services.getUserCreationService().createClient(clientName, clientPassword, clientGender, clientId, imagePath);
             Token clientToken =  Services.getTokenAuthenticationService().getToken(clientPassword);
             addSelectedProducts(clientToken);*/
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("\"Error!Client created successfully\"");
-            alert.showAndWait();
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "Error!Client created successfully");
 
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("\"Error!Client created successfully\"");
-            alert.showAndWait();
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "Error!Client created successfully");
         }
         saveClient();
     }

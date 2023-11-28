@@ -15,19 +15,19 @@
             <Image url="@../../../Images/password.png" />
          </image>
       </ImageView>
-      <Button fx:id="shangePassword" layoutX="-6.0" layoutY="176.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens" text="CHANGE PASSWORD" textFill="WHITE">
+      <Button fx:id="shangePassword" layoutX="-6.0" layoutY="176.0" mnemonicParsing="false" onAction="#buttonShangePassword" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens" text="CHANGE PASSWORD" textFill="WHITE">
          <font>
             <Font name="System Italic" size="22.0" />
          </font>
       </Button>
       <AnchorPane layoutX="34.0" layoutY="34.0" prefHeight="39.0" prefWidth="138.0" style="-fx-background-color: #12123A;" styleClass="panelNavigation2" stylesheets="@styleWindows.css">
          <children>
-            <ImageView fx:id="pricipalWindow" fitHeight="30.0" fitWidth="30.0" layoutX="87.0" layoutY="5.0" pickOnBounds="true" onMouseClicked="#buttonImgPrincipalWindow" preserveRatio="true">
+            <ImageView fx:id="pricipalWindow" fitHeight="30.0" fitWidth="30.0" layoutX="87.0" layoutY="5.0" onMouseClicked="#buttonImgPrincipalWindow" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../Images/return.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="returnWindow" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="5.0" pickOnBounds="true" onMouseClicked="#buttonImgReturnWindow" preserveRatio="true">
+            <ImageView fx:id="returnWindow" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="5.0" onMouseClicked="#buttonImgReturnWindow" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../Images/volver.png" />
                </image>
@@ -40,32 +40,32 @@
          </font>
       </Label>
       <ChoiceBox fx:id="typeOfProducts" layoutX="262.0" layoutY="106.0" prefHeight="25.0" prefWidth="309.0" />
-      <Button fx:id="buy" layoutX="-2.0" layoutY="257.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="233.0" styleClass="buttonsTransferens" text="BUY" textFill="WHITE">
+      <Button fx:id="buy" layoutX="-2.0" layoutY="257.0" mnemonicParsing="false" onAction="#buttonbuy" prefHeight="66.0" prefWidth="233.0" styleClass="buttonsTransferens" text="BUY" textFill="WHITE">
          <font>
             <Font name="System Italic" size="25.0" />
          </font>
       </Button>
-      <Button fx:id="deposit" layoutX="-6.0" layoutY="335.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens" text="DEPOSIT" textFill="WHITE">
+      <Button fx:id="deposit" layoutX="-6.0" layoutY="335.0" mnemonicParsing="false" onAction="#buttonDeposit" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens" text="DEPOSIT" textFill="WHITE">
          <font>
             <Font name="System Italic" size="25.0" />
          </font>
       </Button>
-      <Button fx:id="withdrawals" layoutX="-6.0" layoutY="416.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens" text="WITHDRAWALS" textFill="WHITE">
+      <Button fx:id="withdrawals" layoutX="-6.0" layoutY="416.0" mnemonicParsing="false" onAction="#buttonWithdrawals" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens" text="WITHDRAWALS" textFill="WHITE">
          <font>
             <Font name="System Italic" size="25.0" />
          </font>
       </Button>
-      <Button fx:id="balance" layoutX="460.0" layoutY="287.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens2" text="BALANCE" textFill="WHITE">
+      <Button fx:id="balance" layoutX="460.0" layoutY="287.0" mnemonicParsing="false" onAction="#buttonBalance" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens2" text="BALANCE" textFill="WHITE">
          <font>
             <Font name="System Italic" size="25.0" />
          </font>
       </Button>
-      <Button fx:id="advance" layoutX="460.0" layoutY="383.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens2" text="ADVANCE" textFill="WHITE">
+      <Button fx:id="advance" layoutX="460.0" layoutY="383.0" mnemonicParsing="false" onAction="#buttonAdvance" prefHeight="70.0" prefWidth="240.0" styleClass="buttonsTransferens2" text="ADVANCE" textFill="WHITE">
          <font>
             <Font name="System Italic" size="25.0" />
          </font>
       </Button>
-      <Button fx:id="payments" layoutX="460.0" layoutY="193.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="240.0" styleClass="buttonsTransferens2" text="PAYMENTS" textFill="WHITE">
+      <Button fx:id="payments" layoutX="460.0" layoutY="193.0" mnemonicParsing="false" onAction="#buttonPayments" prefHeight="66.0" prefWidth="240.0" styleClass="buttonsTransferens2" text="PAYMENTS" textFill="WHITE">
          <font>
             <Font name="System Italic" size="25.0" />
          </font>
