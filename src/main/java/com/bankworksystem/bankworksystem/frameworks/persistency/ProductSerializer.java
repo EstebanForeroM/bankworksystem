@@ -24,8 +24,8 @@ public class ProductSerializer implements Serializer<Product> {
 
     private String serializeGeneralProduct(Product product) {
         return product.getProductName() +                    SEPARATOR
-                + product.getOwnerId() +                     SEPARATOR
                 + product.getId() +                          SEPARATOR
+                + product.getOwnerId() +                     SEPARATOR
                 + product.getBalance() +                     SEPARATOR
                 + dateSerializer(product.getOpeningDate()) + SEPARATOR;
     }
@@ -75,8 +75,8 @@ public class ProductSerializer implements Serializer<Product> {
 
         ProductData productData = new ProductData();
 
-        productData.setId(splitString[2])
-                .setOwnerId(splitString[1])
+        productData.setId(splitString[1])
+                .setOwnerId(splitString[2])
                 .setBalance(splitString[3])
                 .setOpeningDate(splitString[4])
                 .setProductName(splitString[0]);
