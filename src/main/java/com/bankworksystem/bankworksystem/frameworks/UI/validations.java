@@ -1,5 +1,7 @@
 package com.bankworksystem.bankworksystem.frameworks.UI;
 
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
 
@@ -7,18 +9,19 @@ public class validations {
 
     private static MessageWindow messageWindow = new MessageWindow();
     public static String validateClientID(String clientID) {
-        if (clientID.length() != 10) {
+        if (clientID.length() > 10) {
             messageWindow.showErrorMessage("Error", "The length must be 10 numbers.");
-            return clientID;
+            return clientID.substring(0, 10);
         }
 
         if (!clientID.matches("\\d+")) {
             messageWindow.showErrorMessage("Error", "The ID should only contain numbers!");
-            return deleteNonAllowedCharacters(clientID, "[^\\d]");
+            return null;
         }
 
         return clientID;
     }
+
 
     public static String validateName(String name) {
         if (!name.matches("[a-zA-Z ]+")) {
@@ -33,21 +36,11 @@ public class validations {
             messageWindow.showErrorMessage("Error", "The length must be at least 6 characters.");
             return false;
         }
-
         return true;
     }
 
-    public static boolean validationAreAllTextFieldsFilled(TextField clienID, TextField emailField, TextField phoneField) {
-        if (clienID == null || clienID.getText().trim().isEmpty()) {
-            return false;
-        }
-        if (emailField == null || emailField.getText().trim().isEmpty()) {
-            return false;
-        }
-        if (phoneField == null || phoneField.getText().trim().isEmpty()) {
-            return false;
-        }
-        return true;
+    public static boolean validateEnterPassword(String password) {
+        return password != null && !password.isEmpty();
     }
 
     private static String deleteNonAllowedCharacters(String text, String regex) {
@@ -61,5 +54,28 @@ public class validations {
 
     public static  boolean validateTransactionAmount(double amount) {
         return amount > 0;
+    }
+
+
+    public static boolean validateAllFields(TextField clientID, TextField name,TextField password,
+                                            CheckBox checkBox1, CheckBox checkBox2, ChoiceBox<String> choiceBox) {
+
+        if (clientID == null || clientID.getText().trim().isEmpty() ||
+                name == null || name.getText().trim().isEmpty() ||
+                password == null || password.getText().trim().isEmpty()) {
+            return false;
+        }
+
+        if ((checkBox1 == null || !checkBox1.isSelected()) && (checkBox2 == null || !checkBox2.isSelected())) {
+            messageWindow.showErrorMessage("Error", "At least one CheckBox must be selected.");
+            return false;
+        }
+
+        if (choiceBox == null || choiceBox.getValue() == null || choiceBox.getValue().isEmpty()) {
+            messageWindow.showErrorMessage("Error", "ChoiceBox must have a selected value.");
+            return false;
+        }
+
+        return true;
     }
 }
