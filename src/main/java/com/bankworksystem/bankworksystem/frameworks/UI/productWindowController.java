@@ -96,7 +96,7 @@ public class productWindowController {
         String[] productNames = productList.stream()
                 .map(product -> product instanceof UninitializedProduct
                         ? ((UninitializedProduct) product).getProductType().getName()
-                        : product.getProductName())
+                        : ProductType.getProductType(product).getName())
                 .toArray(String[]::new);
 
         searchProductOfClient.getItems().clear();
