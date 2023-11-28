@@ -38,7 +38,6 @@ public class passwordWindowController {
     @FXML
     private void buttonPassword(ActionEvent event) throws Exception {
         String enteredPassword = password.getText();
-
         try {
             userToken = Services.getTokenAuthenticationService().getToken(enteredPassword);
             String fxml = "transferentsWindow.fxml";
@@ -69,5 +68,9 @@ public class passwordWindowController {
             Navigation navigation = Navigation.getInstance();
             navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
         });
+    }
+
+    public static Token getUserToken(){
+        return userToken;
     }
 }

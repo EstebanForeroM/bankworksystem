@@ -56,7 +56,7 @@ public class ClientModificationService {
 
     private void validateToken(Token token) {
         if (!tokenAuthenticationService.validate(token)) {
-            throw new RuntimeException("Invalid token");
+            throw new RuntimeException("Authentication failed: Invalid token");
         }
     }
 }

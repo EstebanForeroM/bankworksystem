@@ -89,7 +89,7 @@
          </font></Label>
       <TextField fx:id="nameUser" layoutX="370.0" layoutY="70.0" onKeyTyped="#validationName" prefHeight="25.0" prefWidth="300.0" styleClass="text_input" />
       <TextField fx:id="clientID" layoutX="370.0" layoutY="120.0" onKeyTyped="#validationId" prefHeight="25.0" prefWidth="300.0" styleClass="text_input" />
-      <TextField fx:id="password" layoutX="370.0" layoutY="170.0" onKeyTyped="#validationPassword" prefHeight="25.0" prefWidth="300.0" styleClass="text_input" />
+      <TextField fx:id="password" layoutX="370.0" layoutY="170.0"  prefHeight="25.0" prefWidth="300.0" styleClass="text_input" />
       <Text fill="#fcfafa" layoutX="430.0" layoutY="285.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Products">
          <font>
             <Font name="System Bold Italic" size="12.0" />
@@ -106,7 +106,7 @@
          </font></CheckBox>
       <CheckBox fx:id="americanCard" layoutX="280.0" layoutY="410.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" text="American Card" />
       <CheckBox fx:id="cdt" layoutX="500.0" layoutY="310.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" text="CDT" />
-      <Button fx:id="saveChanges" layoutX="474.0" layoutY="440.0" mnemonicParsing="false" onAction="#buttonSaveChanges" prefHeight="46.0" prefWidth="212.0" styleClass="buttons" text="Save Changes">
+      <Button fx:id="saveChanges" layoutX="474.0" layoutY="440.0" mnemonicParsing="false" onAction="#buttonSaveChanges" prefHeight="46.0" prefWidth="212.0" styleClass="buttons" text="Save / Modify">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font></Button>
