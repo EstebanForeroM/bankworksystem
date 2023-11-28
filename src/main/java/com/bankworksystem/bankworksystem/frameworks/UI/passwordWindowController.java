@@ -46,11 +46,8 @@ public class passwordWindowController {
             Navigation navigation = Navigation.getInstance();
             navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("\"Error! YOU PASSWORD IS WRONG\"");
-            alert.showAndWait();
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "YOU PASSWORD IS WRONG");
         }
     }
 

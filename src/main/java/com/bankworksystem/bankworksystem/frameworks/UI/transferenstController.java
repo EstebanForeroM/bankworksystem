@@ -1,5 +1,6 @@
 package com.bankworksystem.bankworksystem.frameworks.UI;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -62,6 +63,41 @@ public class transferenstController {
             Navigation navigation = Navigation.getInstance();
             navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
         });
+    }
+
+    @FXML
+    private void buttonAdvance(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void buttonBalance(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void buttonbuy(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void buttonDeposit(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void buttonPayments(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void buttonShangePassword(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void buttonWithdrawals(ActionEvent event) {
+
     }
 
 }

@@ -65,4 +65,8 @@ public class seeAllProductsController {
         });
     }
 
+    @FXML
+    private void searchByID(){
+
+    }
 }

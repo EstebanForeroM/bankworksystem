@@ -112,11 +112,8 @@ public class seeAllClientsController {
              //Table refresh
             tableClient.setItems(filteredProducts);*/
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Error! PRODUCT NOT FOUND.");
-            alert.showAndWait();
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "PRODUCT NOT FOUND.");
         }
     }
 
