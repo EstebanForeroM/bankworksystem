@@ -70,4 +70,8 @@ public class passwordWindowController {
             navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
         });
     }
+
+    public static Token getUserToken(){
+        return userToken;
+    }
 }

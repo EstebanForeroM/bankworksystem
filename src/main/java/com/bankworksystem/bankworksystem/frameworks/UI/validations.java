@@ -6,29 +6,24 @@ import javafx.scene.control.TextField;
 public class validations {
 
     private static MessageWindow messageWindow = new MessageWindow();
-    public static boolean validateClientID(String clientID) {
+    public static String validateClientID(String clientID) {
         if (clientID.length() != 10) {
             messageWindow.showErrorMessage("Error", "The length must be 10 numbers.");
-            return false;
-        }
-
-        if (clientID.isEmpty()) {
-            messageWindow.showErrorMessage("Error", "You must enter an ID");
-            return false;
+            return clientID;
         }
 
         if (!clientID.matches("\\d+")) {
             messageWindow.showErrorMessage("Error", "The ID should only contain numbers!");
-            return false;
+            return deleteNonAllowedCharacters(clientID, "[^\\d]");
         }
 
-        return true;
+        return clientID;
     }
 
     public static String validateName(String name) {
-        if (!name.matches("[a-zA-Z]+")) {
-            messageWindow.showErrorMessage("Error", "The Name should only contain letters!");
-            return deleteLastCharacter(name);
+        if (!name.matches("[a-zA-Z ]+")) {
+            messageWindow.showErrorMessage("Error", "The Name should only contain letters and spaces!");
+            return deleteNonAllowedCharacters(name, "[^a-zA-Z ]");
         }
         return name;
     }
@@ -55,9 +50,16 @@ public class validations {
         return true;
     }
 
-    private static String deleteLastCharacter(String text) {
-        if (text.length() > 0)
-            text = text.substring(0, text.length() - 1);
-        return text;
+    private static String deleteNonAllowedCharacters(String text, String regex) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < text.length(); i++) {
+            if (!Character.toString(text.charAt(i)).matches(regex))
+                stringBuilder.append(text.charAt(i));
+        }
+        return stringBuilder.toString().trim();
+    }
+
+    public static  boolean validateTransactionAmount(double amount) {
+        return amount > 0;
     }
 }

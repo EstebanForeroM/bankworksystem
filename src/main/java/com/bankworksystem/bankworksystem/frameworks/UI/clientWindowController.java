@@ -24,6 +24,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.bankworksystem.bankworksystem.frameworks.UI.validations.validateClientID;
 import static com.bankworksystem.bankworksystem.frameworks.UI.validations.validateName;
 
 public class clientWindowController {
@@ -241,12 +242,14 @@ public class clientWindowController {
     private void validationName(KeyEvent event) {
         String userName = nameUser.getText();
         nameUser.setText(validateName(userName));
+        nameUser.end();
     }
 
     @FXML
     private void validationId(KeyEvent event) {
         String ClientID = clientID.getText();
-        validateName(ClientID);
+        clientID.setText(validateClientID(ClientID));
+        clientID.end();
     }
 
     @FXML
@@ -258,32 +261,37 @@ public class clientWindowController {
     @FXML
     private void buttonSaveChanges(ActionEvent event) {
         String clientName = nameUser.getText();
-        String clientId= clientID.getText();
+        String clientId = clientID.getText();
         Gender clientGender = Gender.getGenderByName(gender.getValue());
         String clientPassword = password.getText();
 
-        if (!Services.getClientSearcher().userExists(clientId)) {
+        if (!clientName.isEmpty() && !clientId.isEmpty() && clientGender != null && !clientPassword.isEmpty()) {
+            if (!Services.getClientSearcher().userExists(clientId)) {
+                Services.getUserCreationService().createClient(clientName, clientPassword, clientGender, clientId, imagePath);
+                Token clientToken =  Services.getTokenAuthenticationService().getToken(clientPassword);
+                addSelectedProducts(clientToken);
 
-            Services.getUserCreationService().createClient(clientName, clientPassword, clientGender, clientId, imagePath);
-            Token clientToken =  Services.getTokenAuthenticationService().getToken(clientPassword);
-            addSelectedProducts(clientToken);
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.showErrorMessage("Error", "Error! This client already exists");
+                return;
+            }
 
+            try {
+                Services.getUserModificationService().modifyUser(clientId, clientName, clientPassword, clientGender, imagePath);
+                Token clientToken =  Services.getTokenAuthenticationService().getToken(clientPassword);
+                addSelectedProducts(clientToken);
+
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.showErrorMessage("Success", "Client modified successfully");
+            } catch (Exception e) {
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.showErrorMessage("Error", "Error! Unable to modify client");
+            }
+            saveClient();
+        } else {
             MessageWindow messageWindow = new MessageWindow();
-            messageWindow.showErrorMessage("Error", "Error!This client already exists");
-            return;
+            messageWindow.showErrorMessage("Error", "Error! Please fill in all the required fields");
         }
-
-        try {
-            /*Services.getUserCreationService().createClient(clientName, clientPassword, clientGender, clientId, imagePath);
-            Token clientToken =  Services.getTokenAuthenticationService().getToken(clientPassword);
-            addSelectedProducts(clientToken);*/
-            MessageWindow messageWindow = new MessageWindow();
-            messageWindow.showErrorMessage("Error", "Error!Client created successfully");
-
-        } catch (Exception e) {
-            MessageWindow messageWindow = new MessageWindow();
-            messageWindow.showErrorMessage("Error", "Error!Client created successfully");
-        }
-        saveClient();
     }
+
 }
