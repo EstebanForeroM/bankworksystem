@@ -4,10 +4,11 @@ import com.bankworksystem.bankworksystem.entities.Client;
 import com.bankworksystem.bankworksystem.entities.Gender;
 import com.bankworksystem.bankworksystem.entities.Product;
 import com.bankworksystem.bankworksystem.entities.products.ProductType;
+import com.bankworksystem.bankworksystem.entities.products.UninitializedProduct;
 import com.bankworksystem.bankworksystem.frameworks.Services;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -15,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.util.List;
 import java.util.Set;
 
 public class seeAllClientsController {
@@ -29,7 +31,7 @@ public class seeAllClientsController {
     private TableColumn<Client, String> columnName;
 
     @FXML
-    private TableColumn<Gender, String> columnGender;
+    private TableColumn<Client, Gender> columnGender;
 
     @FXML
     private ChoiceBox<String> gender;
@@ -46,75 +48,115 @@ public class seeAllClientsController {
     @FXML
     private TextField searchByName;
 
-    private String[] searchForGender;
-    private String[] searchForProduct;
+    ObservableList<Client> clientList;
+    FilteredList<Client> filteredList;
 
-    private ObservableList<Client> clients = FXCollections.observableArrayList();
+    private final ObservableList<Client> clients = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
         // Set up the table columns
+        setUpTable();
+        setUpGenderChoiceBox();
+        setUpProductsChoiceBox();
+    }
+
+    private void setUpProductsChoiceBox() {
+        String[] products = new String[ProductType.values().length];
+        ProductType[] productsTypes = ProductType.values();
+
+        for (int i = 0; i < products.length; i++) {
+            if (productsTypes[i] == ProductType.UninitializedProduct) {
+                products[i] = "all";
+                continue;
+            }
+            products[i] = productsTypes[i].getName();
+        }
+
+        this.products.getItems().addAll(products);
+    }
+
+    private void setUpGenderChoiceBox() {
+        String[] gendersNames = new String[Gender.values().length + 1];
+        int i = 0;
+        for (Gender gender1 : Gender.values()) {
+            gendersNames[i] = gender1.name();
+            i++;
+        }
+
+        gendersNames[i] = "all";
+
+        gender.getItems().addAll(gendersNames);
+    }
+
+    private void setUpTable() {
         columnID.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
 
-        // Populate the table with data
-        clients.addAll(Services.getClientSearcher().getClients());
-        tableClient.setItems(clients);
-        Gender[] genders = Gender.values();
-        String[] genderNames = new String[genders.length];
+        List<Client> clientList = Services.getClientSearcher().getClients();
 
-        for (int i = 0; i < genderNames.length; i++) {
-            genderNames[i] = genders[i].getGenderName();
-        }
-        gender.getItems().addAll(genderNames);
+        this.clientList = FXCollections.observableArrayList(clientList);
+        filteredList = new FilteredList<Client>(this.clientList, p -> true);
 
-        ProductType[] productTypes = ProductType.values();
-        String[] productTypeNames = new String[productTypes.length];
+        tableClient.setItems(filteredList);
 
-        for (int i = 0; i < productTypeNames.length; i++) {
-            productTypeNames[i] = productTypes[i].getName();
-        }
-        products.getItems().addAll(productTypeNames);
+        initializeFilters();
     }
 
-    @FXML
-    private void searchByName(ActionEvent event) {
-        String name = searchByName.getText();
-        //filtered table
-        Set<Client> clientsByName = Services.getClientSearcher().getClientsByName(name);
-        ObservableList<Client> filteredClients = FXCollections.observableArrayList(clientsByName);
-        //table refresh
-        tableClient.setItems(filteredClients);
-    }
+    private void initializeFilters() {
+        gender.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(client -> {
+                if (newValue == null || newValue.isEmpty() || newValue.equals("all")) {
+                    return true;
+                }
 
-    @FXML
-    private void searchForGender(ActionEvent event){
+                if (client.getGender().name().equals(newValue)) {
+                    return true;
+                }
 
-        String selectedGender = gender.getValue();
-        // Convert the selected gender to the Gender enum (assuming you have such conversion logic)
-        Gender gender = Gender.getGenderByName(selectedGender);
-        Set<Client> clientsByGender = Services.getClientSearcher().getClientsByGender(Gender.getGenderByName(selectedGender));
-        ObservableList<Client> filteredClients = FXCollections.observableArrayList(clientsByGender);
-        tableClient.setItems(filteredClients);
-    }
+                return false;
+            });
+        });
 
-    @FXML
-    private void searchForProduct(ActionEvent event) {
-        System.out.println("Me estoy ejecutando");
-        // Get the selected product type
-        String selectedProductType = Services.getProductSearcher().getProductName().toString();
+        products.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(client -> {
+                if (newValue == null || newValue.isEmpty() || newValue.equals("all")) {
+                    return true;
+                }
 
-        if (selectedProductType != null && !selectedProductType.isEmpty()) {
-            // Filtered table
-            /*Set<Product> productsByType = Services.getProductSearcher().getProductsByType(ProductType.getProductType(selectedProductType));
-            ObservableList<Product> filteredProducts = FXCollections.observableArrayList(productsByType);
-             //Table refresh
-            tableClient.setItems(filteredProducts);*/
-        } else {
-            MessageWindow messageWindow = new MessageWindow();
-            messageWindow.showErrorMessage("Error", "PRODUCT NOT FOUND.");
-        }
+                Set<Product> productSet = Services.getProductSearcher().getProductsByUniqueOwner(client.getId());
+
+                for (Product product : productSet) {
+                    ProductType productType;
+                    if (product instanceof UninitializedProduct)
+                        productType = ((UninitializedProduct) product).getProductType();
+                    else
+                        productType = ProductType.getProductType(product);
+
+                    if (productType.getName().equals(newValue)) {
+                        return true;
+                    }
+                }
+
+                return false;
+            });
+        });
+
+        searchByName.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(client -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (client.getName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false;
+            });
+        });
     }
 
     @FXML

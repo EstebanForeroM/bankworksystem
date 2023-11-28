@@ -28,7 +28,7 @@ public class seeAllProductsController {
     private ChoiceBox<String> SearchByProducts;
 
     @FXML
-    private TableColumn<?, ?> columnBalance;
+    private TableColumn<Product, Double> columnBalance;
 
     @FXML
     private TableColumn<Product, String> columnDate;
