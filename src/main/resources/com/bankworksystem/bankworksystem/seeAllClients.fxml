@@ -10,7 +10,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" styleClass="principalPanel" stylesheets="@styleWindows.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bankworksystem.bankworksystem.frameworks.UI.seeAllClientsController">
+<?import javafx.scene.layout.StackPane?>
+<AnchorPane prefHeight="500.0" prefWidth="900.0" styleClass="principalPanel" stylesheets="@styleWindows.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bankworksystem.bankworksystem.frameworks.UI.seeAllClientsController">
    <children>
       <AnchorPane layoutX="15.0" layoutY="7.0" prefHeight="40.0" prefWidth="129.0" styleClass="panelNavigation2">
          <children>
@@ -26,30 +27,33 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <TableView fx:id="tableClient" layoutX="74.0" layoutY="166.0" prefHeight="320.0" prefWidth="553.0" styleClass="table-column" stylesheets="@styleWindows.css">
+      <TableView fx:id="tableClient" layoutX="54.0" layoutY="132.0" prefHeight="320.0" prefWidth="553.0" styleClass="table-column" stylesheets="@styleWindows.css">
         <columns>
           <TableColumn fx:id="columnID" prefWidth="150.0" text="ID" />
           <TableColumn fx:id="columnName" minWidth="0.0" prefWidth="266.0" text="Name" />
             <TableColumn fx:id="columnGender" prefWidth="136.0" text="Gender" />
         </columns>
       </TableView>
-      <Label layoutX="75.0" layoutY="60.0" text="Search For Name" textFill="WHITE">
+      <Label layoutX="170.0" layoutY="27.0" text="Search For Name" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="searchByName" layoutX="250.0" layoutY="60.0" prefHeight="26.0" prefWidth="338.0" styleClass="text_input" />
-      <Label layoutX="75.0" layoutY="112.0" text="Gender" textFill="WHITE">
+      <TextField fx:id="searchByName" layoutX="345.0" layoutY="27.0" prefHeight="26.0" prefWidth="338.0" styleClass="text_input" />
+      <Label layoutX="61.0" layoutY="84.0" text="Gender" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="gender" layoutX="155.0" layoutY="108.0" prefWidth="150.0" />
-      <Label layoutX="342.0" layoutY="112.0" text="Products" textFill="WHITE">
+      <ChoiceBox fx:id="gender" layoutX="141.0" layoutY="80.0" prefWidth="150.0" />
+      <Label layoutX="338.0" layoutY="84.0" text="Products" textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="products" layoutX="439.0" layoutY="110.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="products" layoutX="435.0" layoutY="82.0" prefWidth="150.0" />
+      <StackPane>
+         <ImageView fx:id="selectedUserImages" fitHeight="313.0" fitWidth="245.0" pickOnBounds="true" preserveRatio="true" />
+      </StackPane>
    </children>
 </AnchorPane>

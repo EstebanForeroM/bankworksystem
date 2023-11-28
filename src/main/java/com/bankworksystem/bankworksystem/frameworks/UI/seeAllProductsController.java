@@ -15,15 +15,19 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.Set;
 
 public class seeAllProductsController {
 
     @FXML
     public TableView<Product> tableView;
+
     @FXML
     private ChoiceBox<String> SearchByProducts;
 
@@ -51,9 +55,14 @@ public class seeAllProductsController {
     @FXML
     private ChoiceBox<String> searchIDAllClients;
 
-    private ObservableList<String> products;
     @FXML
     private TableColumn<Product, String> columnProducts;
+
+    @FXML
+    private ImageView selectedUserImages;
+
+    private ObservableList<String> products;
+
 
     ObservableList<Product> productsList;
     FilteredList<Product> filteredList;
@@ -158,8 +167,31 @@ public class seeAllProductsController {
                 return false;
             });
         });
+    }
 
+    @FXML
+    private void selectedRowTable() {
+        tableView.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                Product selectedProduct = tableView.getSelectionModel().getSelectedItem();
 
+                if (selectedProduct != null) {
+                    String ownerId = selectedProduct.getOwnerId();
+
+                    loadClientImage(ownerId);
+                }
+            }
+        });
+    }
+
+    private void loadClientImage(String clientId) {
+        Image clientImage = getClientImage(clientId);
+        selectedUserImages.setImage(clientImage);
+    }
+    private Image getClientImage(String clientId) {
+        Path imagePath = Services.getImagePersistence().searchImageByClientId(clientId);
+        File file = imagePath.toFile();
+        return new Image(file.toURI().toString());
     }
 
     @FXML
