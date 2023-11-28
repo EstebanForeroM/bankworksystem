@@ -266,22 +266,27 @@ public class transferenstController {
         });
     }
 
-    private void searchProductOfClient(ActionEvent event) {
-        Set<Product> productList = Services.getProductSearcher().getProductsByUniqueOwner(actualClientId);
-        String[] productNames = new String[productList.size()];
+    private void loadProductsForClient(Token userToken) {
+        try {
+            Set<Product> productList = Services.getProductSearcher().getProductsByUniqueOwner(userToken.getClientId());
 
-        int i = 0;
-        for (Product product : productList) {
-            ProductType productType = ProductType.getProductType(product);
-            String productName = Objects.equals(productType.getName(), ProductType.UninitializedProduct.getName()) ?
-                    ((UninitializedProduct) product).getProductType().getName() : productType.getName();
-            productNames[i] = productName;
-            actualProducts.put(productName, product);
-            i++;
+            String[] productNames = new String[productList.size()];
+
+            int i = 0;
+            for (Product product : productList) {
+                ProductType productType = ProductType.getProductType(product);
+                String productName = Objects.equals(productType.getName(), ProductType.UninitializedProduct.getName()) ?
+                        ((UninitializedProduct) product).getProductType().getName() : productType.getName();
+                productNames[i] = productName;
+                actualProducts.put(productName, product);
+                i++;
+            }
+
+            typeOfProducts.getItems().clear();
+            typeOfProducts.getItems().addAll(productNames);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        typeOfProducts.getItems().clear();
-        typeOfProducts.getItems().addAll(productNames);
     }
 
     public static Optional<String> showTextInputDialog(String promptText, String title, String headerText) {

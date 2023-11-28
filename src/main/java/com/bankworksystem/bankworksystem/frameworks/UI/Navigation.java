@@ -15,14 +15,10 @@ import java.util.Set;
 
 public class Navigation {
     private static Navigation instance = new Navigation();
-
     public static Navigation getInstance() {
         return instance;
     }
-
-    private Navigation() {
-    }
-
+    private Navigation() {}
     public void fireEvent(Stage currentStage, EventType<Event> root, SceneChangeEvent sceneChangeEvent) {
         Event.fireEvent(currentStage, sceneChangeEvent);
     }
@@ -49,28 +45,32 @@ public class Navigation {
 
     public void navigateToRemplaceScene(String fxmlPath, Node sourceNode) {
         try {
-            Set<Client> allClients = Services.getClientSearcher().getAllClients();
-            if (!allClients.isEmpty()) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-                Parent root = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
 
-                if (root != null) {
-                    Scene newScene = new Scene(root);
+            if (root != null) {
+                Scene newScene = new Scene(root);
 
-                    Stage currentStage = (Stage) sourceNode.getScene().getWindow();
-                    currentStage.setScene(newScene);
-                    currentStage.show();
+                Stage currentStage = (Stage) sourceNode.getScene().getWindow();
+                currentStage.setScene(newScene);
+                currentStage.show();
 
-                    fireEventSceneChange(sourceNode, newScene);
-                } else {
-                    System.err.println("Error: FXML root is null");
-                }
+                fireEventSceneChange(sourceNode, newScene);
             } else {
-                MessageWindow messageWindow = new MessageWindow();
-                messageWindow.showErrorMessage("Error", "There are no clients! Create one.");
+                System.err.println("Error: FXML root is null");
             }
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    public void navigationWithException (String fxmlPath, Node sourceNode) {
+        Set<Client> allClients = Services.getClientSearcher().getAllClients();
+        if (!allClients.isEmpty()) {
+            navigateToRemplaceScene(fxmlPath, sourceNode);
+        } else {
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "There are no clients! Create one first.");
         }
     }
 }

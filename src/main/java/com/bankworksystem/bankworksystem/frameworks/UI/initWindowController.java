@@ -90,11 +90,10 @@ public class initWindowController {
 
     @FXML
     private void buttonmanagementClient(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/bankworksystem/bankworksystem/clientWindow.fxml"));
-        Parent root = loader.load();
-
-        Scene currentScene = ((Node) event.getSource()).getScene();
-        currentScene.setRoot(root);
+        String fxml = "clientWindow.fxml";
+        Node sourceNode = (Node) event.getSource();
+        Navigation navigation = Navigation.getInstance();
+        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
     }
 
 
@@ -103,7 +102,7 @@ public class initWindowController {
         String fxml = "productWindow.fxml";
         Node sourceNode = (Node) event.getSource();
         Navigation navigation = Navigation.getInstance();
-        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
+        navigation.navigationWithException("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
     }
 
     @FXML
@@ -111,6 +110,6 @@ public class initWindowController {
         String fxml = "passwordWindow.fxml";
         Node sourceNode = (Node) event.getSource();
         Navigation navigation = Navigation.getInstance();
-        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
+        navigation.navigationWithException("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
     }
 }

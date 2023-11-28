@@ -233,7 +233,7 @@ public class clientWindowController {
         String fxml = "seeAllClients.fxml";
         Node sourceNode = (Node) event.getSource();
         Navigation navigation = Navigation.getInstance();
-        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
+        navigation.navigationWithException("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
     }
 
     @FXML
@@ -252,12 +252,11 @@ public class clientWindowController {
 
     @FXML
     private void buttonSaveChanges(ActionEvent event) {
-        String clientName = nameUser.getText();
-        String clientId = clientID.getText();
-        Gender clientGender = Gender.getGenderByName(gender.getValue());
-        String clientPassword = password.getText();
-
         if (validateAllFields(nameUser, clientID, password, null, null, gender)) {
+            String clientName = nameUser.getText();
+            String clientId = clientID.getText();
+            Gender clientGender = Gender.getGenderByName(gender.getValue());
+            String clientPassword = password.getText();
             if (clientGender == null) {
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.showErrorMessage("Error", "Invalid gender selected.");
