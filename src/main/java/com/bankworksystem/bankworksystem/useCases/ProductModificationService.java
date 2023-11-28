@@ -13,7 +13,7 @@ public class ProductModificationService {
         this.productRepository = productRepository;
     }
 
-    public void modifyProductBalance(String id, int balance) {
+    public void modifyProductBalance(String id, double balance) {
         Product product = productRepository.getProduct(id);
         product.setBalance(balance);
         productRepository.updateProduct(id, product);

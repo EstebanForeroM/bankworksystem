@@ -1,0 +1,4 @@
+Uninitialized product,0828306215,1014739191,0.0,27-11-2023 22:42:49,American Express card
+Uninitialized product,7754124109,1014739191,0.0,27-11-2023 22:42:49,Checking account
+Uninitialized product,1968204447,1014739191,0.0,27-11-2023 22:42:49,Savings account
+Uninitialized product,6435143908,1014739191,0.0,27-11-2023 22:42:49,CDT
