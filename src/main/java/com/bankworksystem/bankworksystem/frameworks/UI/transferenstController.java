@@ -49,7 +49,7 @@ public class transferenstController {
     private Button shangePassword;
 
     @FXML
-    private ChoiceBox typeOfProducts;
+    private ChoiceBox <String> typeOfProducts;
 
     @FXML
     private Button withdrawals;
@@ -106,22 +106,18 @@ public class transferenstController {
 
     @FXML
     private void buttonImgPrincipalWindow(MouseEvent event) {
-        pricipalWindow.setOnMouseClicked(e -> {
-            String fxml = "initWindow.fxml";
-            Node sourceNode = (Node) event.getSource();
-            Navigation navigation = Navigation.getInstance();
-            navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
-        });
+        String fxml = "initWindow.fxml";
+        Node sourceNode = (Node) event.getSource();
+        Navigation navigation = Navigation.getInstance();
+        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
     }
 
     @FXML
     private void buttonImgReturnWindow(MouseEvent event) {
-        returnWindow.setOnMouseClicked(e -> {
-            String fxml = "initWindow.fxml";
-            Node sourceNode = (Node) event.getSource();
-            Navigation navigation = Navigation.getInstance();
-            navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
-        });
+        String fxml = "initWindow.fxml";
+        Node sourceNode = (Node) event.getSource();
+        Navigation navigation = Navigation.getInstance();
+        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
     }
 
     @FXML
@@ -276,7 +272,7 @@ public class transferenstController {
             for (Product product : productList) {
                 ProductType productType = ProductType.getProductType(product);
                 String productName = Objects.equals(productType.getName(), ProductType.UninitializedProduct.getName()) ?
-                        ((UninitializedProduct) product).getProductType().getName() : productType.getName();
+                ((UninitializedProduct) product).getProductType().getName() : productType.getName();
                 productNames[i] = productName;
                 actualProducts.put(productName, product);
                 i++;

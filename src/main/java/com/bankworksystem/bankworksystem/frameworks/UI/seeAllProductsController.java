@@ -164,22 +164,18 @@ public class seeAllProductsController {
 
     @FXML
     private void buttonImgPrincipalWindow(MouseEvent event) {
-        principalWindow.setOnMouseClicked(e -> {
-            String fxml = "initWindow.fxml";
-            Node sourceNode = (Node) event.getSource();
-            Navigation navigation = Navigation.getInstance();
-            navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
-        });
+        String fxml = "initWindow.fxml";
+        Node sourceNode = (Node) event.getSource();
+        Navigation navigation = Navigation.getInstance();
+        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
     }
 
     @FXML
     private void buttonImgReturnWindow(MouseEvent event) {
-        returnWindow.setOnMouseClicked(e -> {
-            String fxml = "initWindow.fxml";
-            Node sourceNode = (Node) event.getSource();
-            Navigation navigation = Navigation.getInstance();
-            navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
-        });
+        String fxml = "initWindow.fxml";
+        Node sourceNode = (Node) event.getSource();
+        Navigation navigation = Navigation.getInstance();
+        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
     }
 
     @FXML

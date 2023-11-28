@@ -155,22 +155,18 @@ public class clientWindowController {
 
     @FXML
     private void buttonImgPrincipalWindow(MouseEvent event) {
-        pricipalWindow.setOnMouseClicked(e -> {
             String fxml = "initWindow.fxml";
             Node sourceNode = (Node) event.getSource();
             Navigation navigation = Navigation.getInstance();
             navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
-        });
     }
 
     @FXML
     private void buttonImgReturnWindow(MouseEvent event) {
-        returnWindow.setOnMouseClicked(e -> {
             String fxml = "initWindow.fxml";
             Node sourceNode = (Node) event.getSource();
             Navigation navigation = Navigation.getInstance();
             navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
-        });
     }
 
     @FXML
@@ -188,6 +184,14 @@ public class clientWindowController {
         } else {
             System.out.println("No file selected.");
         }
+    }
+
+    @FXML
+    private void buttonRight(MouseEvent event) {
+    }
+
+    @FXML
+    private void buttonLeft(MouseEvent event) {
     }
 
     @FXML
