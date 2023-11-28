@@ -144,17 +144,20 @@ public class seeAllClientsController {
         });
 
         searchByName.textProperty().addListener((observable, oldValue, newValue) -> {
+            String validatedName = validations.validateName(newValue);
+            if (validatedName == null) {
+                searchByName.clear();
+                return;
+            }
+
             filteredList.setPredicate(client -> {
-                if (newValue == null || newValue.isEmpty()) {
+                if (validatedName.isEmpty()) {
                     return true;
                 }
 
-                String lowerCaseFilter = newValue.toLowerCase();
+                String lowerCaseFilter = validatedName.toLowerCase();
 
-                if (client.getName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false;
+                return client.getName().toLowerCase().contains(lowerCaseFilter);
             });
         });
     }
