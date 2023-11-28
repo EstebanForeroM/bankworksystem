@@ -25,19 +25,19 @@
                   </Label>
                   <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="138.0" styleClass="panelNavigation2" stylesheets="@styleWindows.css">
                      <children>
-                        <ImageView fx:id="pricipalWindow" fitHeight="30.0" fitWidth="30.0" layoutX="87.0" layoutY="5.0" pickOnBounds="true" onMouseClicked="#buttonImgPrincipalWindow" preserveRatio="true">
+                        <ImageView fx:id="pricipalWindow" fitHeight="30.0" fitWidth="30.0" layoutX="87.0" layoutY="5.0" onMouseClicked="#buttonImgPrincipalWindow" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../Images/return.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="returnWindow" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="5.0" pickOnBounds="true" onMouseClicked="#buttonImgReturnWindow" preserveRatio="true">
+                        <ImageView fx:id="returnWindow" fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="5.0" onMouseClicked="#buttonImgReturnWindow" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../Images/volver.png" />
                            </image>
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <TextField layoutX="30.0" layoutY="130.0" prefHeight="25.0" prefWidth="178.0" styleClass="text_input" />
+                  <TextField fx:id="clientId" layoutX="30.0" layoutY="130.0" prefHeight="25.0" prefWidth="178.0" styleClass="text_input" />
                   <Button fx:id="seachByID" layoutX="30.0" layoutY="170.0" mnemonicParsing="false" styleClass="generalButtons" text="Search">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -50,7 +50,7 @@
                         <Font name="System Italic" size="12.0" />
                      </font>
                   </Button>
-                  <Label layoutX="30.0" layoutY="242.0" text="Products Of Clients" textFill="WHITE">
+                  <Label layoutX="30.0" layoutY="242.0" text="Products Of Client" textFill="WHITE">
                      <font>
                         <Font name="System Bold Italic" size="20.0" />
                      </font>

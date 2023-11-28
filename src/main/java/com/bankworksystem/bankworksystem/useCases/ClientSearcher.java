@@ -81,7 +81,12 @@ public class ClientSearcher {
     }
 
     public boolean userExists(String id) {
-        return !getClientsById(id).isEmpty();
+        for (Client client : clients) {
+            if (client.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Set<Client> getClientsByName(String name) {
