@@ -47,9 +47,6 @@ public class clientWindowController {
     private Button deleteUser;
 
     @FXML
-    private Button editProfile;
-
-    @FXML
     private ChoiceBox<String> gender;
 
     @FXML
@@ -177,7 +174,7 @@ public class clientWindowController {
         });
     }
 
-    @FXML
+    @Deprecated
     private void buttonEditProfile(ActionEvent event) {
 
     }
