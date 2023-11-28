@@ -107,10 +107,10 @@ public class seeAllClientsController {
 
         if (selectedProductType != null && !selectedProductType.isEmpty()) {
             // Filtered table
-            Set<Product> productsByType = Services.getProductSearcher().getProductsByType(ProductType.getProductType(selectedProductType));
+            /*Set<Product> productsByType = Services.getProductSearcher().getProductsByType(ProductType.getProductType(selectedProductType));
             ObservableList<Product> filteredProducts = FXCollections.observableArrayList(productsByType);
-            // Table refresh
-            //tableClient.setItems(filteredProducts);
+             //Table refresh
+            tableClient.setItems(filteredProducts);*/
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -133,7 +133,7 @@ public class seeAllClientsController {
     @FXML
     private void buttonImgReturnWindow(MouseEvent event) {
         returnWindow.setOnMouseClicked(e -> {
-            String fxml = "initWindow.fxml";
+            String fxml = "clientWindow.fxml";
             Node sourceNode = (Node) event.getSource();
             Navigation navigation = Navigation.getInstance();
             navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
