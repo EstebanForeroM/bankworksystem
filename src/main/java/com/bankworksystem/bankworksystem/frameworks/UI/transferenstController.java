@@ -142,7 +142,7 @@ public class transferenstController {
             try {
                 double advanceAmount = Double.parseDouble(result.get());
                 if (validateTransactionAmount(advanceAmount)) {
-                    double balance = Services.getProductSearcher().getProductsById(productId);
+                    Set<Product> balance = Services.getProductSearcher().getUniqueProductById(productId);
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.showSuccessMessage("Information", "Your product ID: " + productId + "\nYour balance: " + balance);
                 } else {
@@ -169,7 +169,7 @@ public class transferenstController {
                 double buyAmount = Double.parseDouble(result.get());
                 if (validateTransactionAmount(buyAmount)) {
                     String productId = actualProducts.get(typeOfProducts.getValue()).getId();
-                    Services.getProductModificationService().buy(productId, buyAmount);
+                    Services.getTransactionService().withdraw(passwordWindowController.getUserToken(),productId, buyAmount);
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.showSuccessMessage("Information", "Your buy has been made successfully.");
                 } else {
@@ -195,7 +195,7 @@ public class transferenstController {
                 double depositAmount = Double.parseDouble(result.get());
                 if (validateTransactionAmount(depositAmount)) {
                     String productId = actualProducts.get(typeOfProducts.getValue()).getId();
-                    Services.getProductModificationService().deposit(productId, depositAmount);
+                    Services.getTransactionService().deposit(passwordWindowController.getUserToken(),productId, depositAmount);
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.showSuccessMessage("Information", "Your deposit has been made successfully.");
                 } else {
@@ -221,7 +221,7 @@ public class transferenstController {
                 double paymentAmount = Double.parseDouble(result.get());
                 if (validateTransactionAmount(paymentAmount)) {
                     String productId = actualProducts.get(typeOfProducts.getValue()).getId();
-                    Services.getProductModificationService().pay(productId, paymentAmount);
+                    Services.getTransactionService().deposit(passwordWindowController.getUserToken(),productId, paymentAmount);
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.showSuccessMessage("Information", "Your payment has been made successfully.");
                 } else {

@@ -277,9 +277,9 @@ public class clientWindowController {
             }
 
             try {
-                Services.getUserModificationService().modifyUser(clientId, clientName, clientPassword, clientGender, imagePath);
+                /*Services.getUserModificationService().modifyUser(clientId, clientName, clientPassword, clientGender, imagePath);
                 Token clientToken =  Services.getTokenAuthenticationService().getToken(clientPassword);
-                addSelectedProducts(clientToken);
+                addSelectedProducts(clientToken);*/
 
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.showErrorMessage("Success", "Client modified successfully");
