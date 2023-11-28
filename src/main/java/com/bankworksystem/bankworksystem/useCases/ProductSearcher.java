@@ -39,15 +39,13 @@ public class ProductSearcher {
         return productsById;
     }
 
-    public Set<Product> getUniqueProductById(String id) {
-        Set<Product> productsById = new HashSet<>();
+    public Product getUniqueProductById(String id) {
 
         for (Product product : products) {
-            if (product.getId().contains(id))
-                productsById.add(product);
+            if (product.getId().equals(id))
+                return product;
         }
-
-        return productsById;
+        return null;
     }
 
     public String getProductName() {
