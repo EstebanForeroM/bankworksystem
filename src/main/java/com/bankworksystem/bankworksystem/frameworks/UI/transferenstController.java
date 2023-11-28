@@ -54,6 +54,7 @@ public class transferenstController {
     @FXML
     private Button withdrawals;
 
+
     private HashMap<String, Product> actualProducts = new HashMap<>();
 
     private String actualClientId;
@@ -137,12 +138,13 @@ public class transferenstController {
     @FXML
     private void buttonBalance(ActionEvent event) {
         String productId = actualProducts.get(typeOfProducts.getValue()).getId();
+        double balance = Services.getProductSearcher().getUniqueProductById(productId).getBalance();
         Optional<String> result = showTextInputDialog("Enter the amount to advance", "Advance", "Please enter the amount to advance:");
         if (result.isPresent() && !result.get().isEmpty()) {
             try {
                 double advanceAmount = Double.parseDouble(result.get());
                 if (validateTransactionAmount(advanceAmount)) {
-                    Set<Product> balance = Services.getProductSearcher().getUniqueProductById(productId);
+                    balance = Services.getProductSearcher().getUniqueProductById(productId).getBalance();
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.showSuccessMessage("Information", "Your product ID: " + productId + "\nYour balance: " + balance);
                 } else {
@@ -245,7 +247,7 @@ public class transferenstController {
         if (result.isPresent() && !result.get().isEmpty()) {
             String newPassword = result.get();
             if (validatePassword(newPassword)) {
-                Token token = new Token(newPassword, newPassword);
+                Token token = passwordWindowController.getUserToken();
                 Services.getUserModificationService().modifyUserPassword(token, newPassword);
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.showSuccessMessage("Information", "Your password has been changed successfully.");
@@ -258,7 +260,7 @@ public class transferenstController {
         Optional<String> result = showTextInputDialog("Enter the amount to withdraw", "Withdraw", "Please enter the amount to withdraw:");
         result.ifPresent(amount -> {
             String productId = actualProducts.get(typeOfProducts.getValue()).getId();
-            Services.getProductModificationService().withdraw(productId, Double.parseDouble(amount));
+            Services.getTransactionService().withdraw(passwordWindowController.getUserToken(),productId, Double.parseDouble(amount));
             MessageWindow messageWindow = new MessageWindow();
             messageWindow.showSuccessMessage("Information", "Your withdrawal has been made successfully.");
         });

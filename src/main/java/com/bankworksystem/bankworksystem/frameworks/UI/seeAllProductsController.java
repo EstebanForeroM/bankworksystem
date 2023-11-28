@@ -42,7 +42,6 @@ public class seeAllProductsController {
 
     @FXML
     private void initialize() {
-        // TODO
     }
 
     @FXML

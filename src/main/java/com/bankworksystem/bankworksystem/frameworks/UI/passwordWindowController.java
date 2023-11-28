@@ -38,7 +38,6 @@ public class passwordWindowController {
     @FXML
     private void buttonPassword(ActionEvent event) throws Exception {
         String enteredPassword = password.getText();
-
         try {
             userToken = Services.getTokenAuthenticationService().getToken(enteredPassword);
             String fxml = "transferentsWindow.fxml";

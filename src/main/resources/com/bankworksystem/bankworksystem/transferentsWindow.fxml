@@ -40,7 +40,7 @@
          </font>
       </Label>
       <ChoiceBox fx:id="typeOfProducts" layoutX="262.0" layoutY="106.0" prefHeight="25.0" prefWidth="309.0" />
-      <Button fx:id="buy" layoutX="-2.0" layoutY="257.0" mnemonicParsing="false" onAction="#buttonbuy" prefHeight="66.0" prefWidth="233.0" styleClass="buttonsTransferens" text="BUY" textFill="WHITE">
+      <Button fx:id="buy" layoutX="-2.0" layoutY="257.0" mnemonicParsing="false" onAction="#buttonBuy" prefHeight="66.0" prefWidth="233.0" styleClass="buttonsTransferens" text="BUY" textFill="WHITE">
          <font>
             <Font name="System Italic" size="25.0" />
          </font>

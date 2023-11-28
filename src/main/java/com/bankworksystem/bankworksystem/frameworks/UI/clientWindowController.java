@@ -252,11 +252,6 @@ public class clientWindowController {
         clientID.end();
     }
 
-    @FXML
-    private void validationPassword(KeyEvent event) {
-        String ClientPassword = password.getText();
-        validateName(ClientPassword);
-    }
 
     @FXML
     private void buttonSaveChanges(ActionEvent event) {

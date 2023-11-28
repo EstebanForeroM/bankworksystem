@@ -5,6 +5,7 @@ import com.bankworksystem.bankworksystem.entities.products.ProductType;
 import com.bankworksystem.bankworksystem.entities.products.UninitializedProduct;
 import com.bankworksystem.bankworksystem.frameworks.Services;
 import com.bankworksystem.bankworksystem.useCases.ProductModificationService;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -70,6 +71,14 @@ public class productWindowController {
             Navigation navigation = Navigation.getInstance();
             navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
         });
+    }
+
+    @FXML
+    private void buttonSeeAll(ActionEvent event) {
+            String fxml = "seeAllProducts.fxml";
+            Node sourceNode = (Node) event.getSource();
+            Navigation navigation = Navigation.getInstance();
+            navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
     }
 
     @FXML
