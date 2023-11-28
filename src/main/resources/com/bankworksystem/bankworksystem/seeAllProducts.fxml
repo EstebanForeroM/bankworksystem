@@ -15,7 +15,7 @@
    <children>
       <AnchorPane layoutX="18.0" layoutY="24.0" prefHeight="39.0" prefWidth="138.0" styleClass="panelNavigation2" stylesheets="@styleWindows.css">
          <children>
-             <ImageView fx:id="pricipalWindow" fitHeight="30.0" fitWidth="30.0" layoutX="87.0" layoutY="5.0" pickOnBounds="true" onMouseClicked="#buttonImgPrincipalWindow" preserveRatio="true">
+             <ImageView fx:id="principalWindow" fitHeight="30.0" fitWidth="30.0" layoutX="87.0" layoutY="5.0" pickOnBounds="true" onMouseClicked="#buttonImgPrincipalWindow" preserveRatio="true">
                  <image>
                      <Image url="@../../../Images/return.png" />
                  </image>
@@ -49,13 +49,13 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="263.0" prefWidth="695.0">
                <children>
-                  <TableView prefHeight="285.0" prefWidth="700.0" styleClass="table-column">
+                  <TableView fx:id="tableView" prefHeight="285.0" prefWidth="700.0" styleClass="table-column">
                     <columns>
                       <TableColumn fx:id="columnIDProducts" prefWidth="117.0" text="ID Product" />
                       <TableColumn fx:id="columnIDClient" prefWidth="134.0" text="ID Client" />
-                        <TableColumn fx:id="cloumnProducts" minWidth="0.0" prefWidth="177.0" text="Products " />
+                        <TableColumn fx:id="columnProducts" minWidth="0.0" prefWidth="177.0" text="Products " />
                         <TableColumn fx:id="columnDate" minWidth="0.0" prefWidth="163.0" text="Opening Date" />
-                        <TableColumn fx:id="columnAvalance" minWidth="0.0" prefWidth="108.0" text="Available" />
+                        <TableColumn fx:id="columnBalance" minWidth="0.0" prefWidth="108.0" text="Available" />
                     </columns>
                   </TableView>
                </children>

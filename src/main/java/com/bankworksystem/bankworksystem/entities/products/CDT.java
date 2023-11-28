@@ -10,13 +10,9 @@ public class CDT extends Product {
 
     public CDT(String id, String ownerId, Date openingDate, int expirationMonths) {
         super(id, ownerId, openingDate);
+        productName = "CDT";
         validateNegativeNumbers(expirationMonths);
         this.expirationMonths = expirationMonths;
-    }
-
-    @Override
-    public String getProductName() {
-        return "CDT";
     }
 
     public int getExpirationMonths() {

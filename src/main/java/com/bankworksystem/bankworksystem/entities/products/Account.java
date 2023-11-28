@@ -10,12 +10,8 @@ public class Account extends Product implements Transactional {
 
     public Account(String id, String ownerId, Date openingDate, AccountType type) {
         super(id, ownerId, openingDate);
+        productName = "Account " + type.getName();
         this.type = type;
-    }
-
-    @Override
-    public String getProductName() {
-        return "Account";
     }
 
     public void deposit(double amount) {

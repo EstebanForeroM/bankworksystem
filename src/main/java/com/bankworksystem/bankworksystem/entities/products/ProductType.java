@@ -23,6 +23,7 @@ public enum ProductType {
 
     public static ProductType getProductType(String name) {
         String normalizedInput = name.toUpperCase();
+        normalizedInput = normalizedInput.replace("_", " ");
         for (ProductType productType : ProductType.values()) {
             String normalizedEnumName = productType.getName().toUpperCase();
             if (normalizedEnumName.equals(normalizedInput)) {

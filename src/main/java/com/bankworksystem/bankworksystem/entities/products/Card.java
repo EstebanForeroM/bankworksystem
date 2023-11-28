@@ -9,12 +9,8 @@ public class Card extends Product implements Transactional {
 
     public Card(String id, String ownerId, Date openingDate, CardType type) {
         super(id, ownerId, openingDate);
+        productName = "Card " + type.getName();
         this.type = type;
-    }
-
-    @Override
-    public String getProductName() {
-        return "Card";
     }
 
     public void deposit(double amount) {

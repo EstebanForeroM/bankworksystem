@@ -11,6 +11,7 @@ public abstract class Product implements Identifiable {
 
     protected double balance;
 
+    protected String productName;
     private Date openingDate;
 
     public Product(String id, String ownerId, Date openingDate) {
@@ -33,7 +34,9 @@ public abstract class Product implements Identifiable {
         balance = 0;
     }
 
-    public abstract String getProductName();
+    public String getProductName() {
+        return productName;
+    }
 
     public double setBalance(double balance) {
         return this.balance = balance;

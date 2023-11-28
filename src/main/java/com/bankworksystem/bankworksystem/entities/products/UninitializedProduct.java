@@ -10,16 +10,12 @@ public class UninitializedProduct extends Product {
 
     public UninitializedProduct(String id, String ownerId, ProductType productName) {
         super(id, ownerId, new Date());
+        super.productName = productName.getName();
         this.productType = productName;
     }
 
     public ProductType getProductType() {
         return productType;
-    }
-
-    @Override
-    public String getProductName() {
-        return "Uninitialized product";
     }
 
 }

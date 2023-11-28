@@ -84,4 +84,8 @@ public class ProductSearcher {
 
         return productsByType;
     }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
 }

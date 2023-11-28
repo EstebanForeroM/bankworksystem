@@ -1,35 +1,46 @@
 package com.bankworksystem.bankworksystem.frameworks.UI;
 
+import com.bankworksystem.bankworksystem.entities.Client;
+import com.bankworksystem.bankworksystem.entities.Product;
+import com.bankworksystem.bankworksystem.entities.products.ProductType;
+import com.bankworksystem.bankworksystem.entities.products.UninitializedProduct;
+import com.bankworksystem.bankworksystem.frameworks.Services;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+
+import java.util.Set;
 
 public class seeAllProductsController {
 
     @FXML
-    private ChoiceBox<?> SearchByProducts;
+    public TableView<Product> tableView;
+    @FXML
+    private ChoiceBox<String> SearchByProducts;
 
     @FXML
-    private TableColumn<?, ?> cloumnProducts;
+    private TableColumn<?, ?> columnBalance;
 
     @FXML
-    private TableColumn<?, ?> columnAvalance;
+    private TableColumn<Product, String> columnDate;
 
     @FXML
-    private TableColumn<?, ?> columnDate;
+    private TableColumn<Product, String> columnIDClient;
 
     @FXML
-    private TableColumn<?, ?> columnIDClient;
+    private TableColumn<Product, String> columnIDProducts;
 
     @FXML
-    private TableColumn<?, ?> columnIDProducts;
-
-    @FXML
-    private ImageView pricipalWindow;
+    private ImageView principalWindow;
 
     @FXML
     private ImageView returnWindow;
@@ -38,15 +49,122 @@ public class seeAllProductsController {
     private TextField searchByID;
 
     @FXML
-    private ChoiceBox<?> searchIDAllClients;
+    private ChoiceBox<String> searchIDAllClients;
+
+    private ObservableList<String> products;
+    @FXML
+    private TableColumn<Product, String> columnProducts;
+
+    ObservableList<Product> productsList;
+    FilteredList<Product> filteredList;
 
     @FXML
     private void initialize() {
+        initializeProductsChoiceBox();
+        initializeClientIdChoiceBox();
+        setUpTable();
+    }
+
+    private void setUpTable() {
+        columnIDProducts.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnIDClient.setCellValueFactory(new PropertyValueFactory<>("ownerId"));
+        columnDate.setCellValueFactory(new PropertyValueFactory<>("openingDate"));
+        columnBalance.setCellValueFactory(new PropertyValueFactory<>("balance"));
+        columnProducts.setCellValueFactory(new PropertyValueFactory<>("productName"));
+
+        Set<Product> productSet = Services.getProductSearcher().getProducts();
+        productsList = FXCollections.observableArrayList(productSet);
+        filteredList = new FilteredList<Product>(productsList, p -> true);
+
+        tableView.setItems(filteredList);
+
+        initializeFilters();
+    }
+
+    private void initializeClientIdChoiceBox() {
+        String[] clientIds = new String[Services.getClientSearcher().getClients().size()];
+        int i = 0;
+        for (Client client : Services.getClientSearcher().getClients()) {
+            clientIds[i] = client.getId();
+            i++;
+        }
+
+        searchIDAllClients.getItems().addAll(clientIds);
+    }
+
+    private void initializeProductsChoiceBox() {
+        String[] products = new String[ProductType.values().length - 1];
+        ProductType[] productsTypes = ProductType.values();
+
+        for (int i = 0; i < products.length; i++) {
+            if (productsTypes[i] == ProductType.UninitializedProduct) {
+                i--;
+                continue;
+            }
+            products[i] = productsTypes[i].getName();
+        }
+
+        SearchByProducts.getItems().addAll(products);
+    }
+
+    private void initializeFilters() {
+        searchByID.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(product -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (product.getId().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+
+        searchIDAllClients.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(product -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (product.getOwnerId().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+
+        SearchByProducts.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            filteredList.setPredicate(product -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                ProductType requiredProductType = ProductType.getProductType(newValue);
+                ProductType productType;
+
+                if (product instanceof UninitializedProduct)
+                    productType = ((UninitializedProduct) product).getProductType();
+                else
+                    productType = ProductType.getProductType(product);
+
+                if (requiredProductType.equals(productType)) {
+                    return true;
+                }
+                return false;
+            });
+        });
+
+
     }
 
     @FXML
     private void buttonImgPrincipalWindow(MouseEvent event) {
-        pricipalWindow.setOnMouseClicked(e -> {
+        principalWindow.setOnMouseClicked(e -> {
             String fxml = "initWindow.fxml";
             Node sourceNode = (Node) event.getSource();
             Navigation navigation = Navigation.getInstance();
