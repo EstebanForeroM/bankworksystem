@@ -1,20 +1,19 @@
 package com.bankworksystem.bankworksystem.frameworks.UI;
-import com.bankworksystem.bankworksystem.entities.Client;
 import com.bankworksystem.bankworksystem.entities.Product;
+import com.bankworksystem.bankworksystem.entities.products.CDT;
 import com.bankworksystem.bankworksystem.entities.products.ProductType;
 import com.bankworksystem.bankworksystem.entities.products.UninitializedProduct;
 import com.bankworksystem.bankworksystem.frameworks.Services;
+import com.bankworksystem.bankworksystem.useCases.ProductModificationService;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Box;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.*;
 
 public class productWindowController {
 
@@ -49,6 +48,8 @@ public class productWindowController {
     private boolean productLoaded = false;
     private String actualClientId;
     private MessageWindow messageWindow;
+    private HashMap<String, Product> actualProducts = new HashMap<>();
+    private Product selectedProduct;
 
     @FXML
     private void initialize() {
@@ -57,6 +58,7 @@ public class productWindowController {
         create.setOnAction(e -> onCreateButtonClicked());
         clientId.setOnAction(e -> onClientIdEntered());
         seachByID.setOnAction(e -> onClientIdEntered());
+        searchProductOfClient.setOnAction(e -> onProductSelected());
     }
 
     @FXML
@@ -80,23 +82,66 @@ public class productWindowController {
     }
 
     private void onCreateButtonClicked() {
-        if (!productLoaded) {
-            messageWindow.showErrorMessage("Error", "Client products not loaded");
-            return;
+        if (selectedProduct instanceof UninitializedProduct) {
+            initializeProduct((UninitializedProduct) selectedProduct);
+        } else {
+            modifyProduct(selectedProduct);
         }
-
-
     }
+
+    private void modifyProduct(Product product) {
+        String productId = product.getId();
+        ProductType productType = ProductType.getProductType(product);
+
+        ProductModificationService productModificationService = Services.getProductModificationService();
+
+        if (productType == ProductType.CDT)
+            productModificationService.modifyCDTTimePeriod(productId, Integer.parseInt(termInMonths.getText()));
+
+        productModificationService.modifyProductBalance(productId, Double.parseDouble(balance.getText()));
+        productModificationService.modifyProductOpeningDate(productId, convertLocalDateToDate(date.getValue()));
+    }
+
+    private void initializeProduct(UninitializedProduct product) {
+        ProductType productType = product.getProductType();
+
+        switch (productType) {
+            case CDT:
+                Services.getProductCreationService().initializeCDT(product.getId(), convertLocalDateToDate(date.getValue()), Integer.parseInt(termInMonths.getText()));
+                break;
+            case AMERICAN_EXPRESS:
+            case VISA_CARD:
+            case MASTERCARD:
+                Services.getProductCreationService().initializeCard(product.getId(), convertLocalDateToDate(date.getValue()));
+                break;
+            case SAVINGS_ACCOUNT:
+                Services.getProductCreationService().initializeAccount(product.getId(), convertLocalDateToDate(date.getValue()));
+                break;
+        }
+    }
+
+    public Date convertLocalDateToDate(LocalDate localDate) {
+        return Date.from(localDate.atStartOfDay()
+                .atZone(ZoneId.systemDefault())
+                .toInstant());
+    }
+
 
     private void loadClientProducts(String clientId) {
 
         Set<Product> productList = Services.getProductSearcher().getProductsByUniqueOwner(clientId);
 
-        String[] productNames = productList.stream()
-                .map(product -> product instanceof UninitializedProduct
-                        ? ((UninitializedProduct) product).getProductType().getName()
-                        : ProductType.getProductType(product).getName())
-                .toArray(String[]::new);
+        String[] productNames = new String[productList.size()];
+
+        int i = 0;
+        for (Product product : productList) {
+            ProductType productType = ProductType.getProductType(product);
+            String productName = Objects.equals(productType.getName(), ProductType.UninitializedProduct.getName()) ?
+                    ((UninitializedProduct) product).getProductType().getName() : productType.getName();
+            productNames[i] = productName;
+            actualProducts.put(productName, product);
+            i++;
+        }
 
         searchProductOfClient.getItems().clear();
         searchProductOfClient.getItems().addAll(productNames);
@@ -116,5 +161,26 @@ public class productWindowController {
         messageWindow.showSuccessMessage("Success", "Client loaded");
         loadClientProducts(clientId.getText());
     }
+
+    private void onProductSelected() {
+        String selectedProduct = (String) searchProductOfClient.getValue();
+        this.selectedProduct = actualProducts.get(selectedProduct);
+        if (this.selectedProduct instanceof UninitializedProduct) {
+            messageWindow.showSuccessMessage("Alert", "This product is not initialized");
+            create.setText("Create product");
+        } else {
+            create.setText("Modify product");
+        }
+        updateProductSpecificUI(this.selectedProduct);
+    }
+
+    private void updateProductSpecificUI(Product product) {
+
+        termInMonths.setDisable(true);
+
+        if (product instanceof CDT)
+            termInMonths.setDisable(false);
+    }
+
 }
 
