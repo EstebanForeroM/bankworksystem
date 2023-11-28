@@ -87,9 +87,9 @@
          <font>
             <Font name="System Italic" size="12.0" />
          </font></Label>
-      <TextField fx:id="nameUser" layoutX="370.0" layoutY="70.0" onAction="#validationName" prefHeight="25.0" prefWidth="300.0" styleClass="text_input" />
-      <TextField fx:id="clientID" layoutX="370.0" layoutY="120.0" onAction="#validationId" prefHeight="25.0" prefWidth="300.0" styleClass="text_input" />
-      <TextField fx:id="password" layoutX="370.0" layoutY="170.0" onAction="#validationPassword" prefHeight="25.0" prefWidth="300.0" styleClass="text_input" />
+      <TextField fx:id="nameUser" layoutX="370.0" layoutY="70.0" onKeyTyped="#validationName" prefHeight="25.0" prefWidth="300.0" styleClass="text_input" />
+      <TextField fx:id="clientID" layoutX="370.0" layoutY="120.0" onKeyTyped="#validationId" prefHeight="25.0" prefWidth="300.0" styleClass="text_input" />
+      <TextField fx:id="password" layoutX="370.0" layoutY="170.0" onKeyTyped="#validationPassword" prefHeight="25.0" prefWidth="300.0" styleClass="text_input" />
       <Text fill="#fcfafa" layoutX="430.0" layoutY="285.0" scaleX="2.0" scaleY="2.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Products">
          <font>
             <Font name="System Bold Italic" size="12.0" />

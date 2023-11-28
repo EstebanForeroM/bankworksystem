@@ -14,6 +14,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Box;
 import javafx.scene.control.CheckBox;
@@ -237,19 +238,19 @@ public class clientWindowController {
     }
 
     @FXML
-    private void validationName(ActionEvent event) {
+    private void validationName(KeyEvent event) {
         String userName = nameUser.getText();
-        validateName(userName);
+        nameUser.setText(validateName(userName));
     }
 
     @FXML
-    private void validationId(ActionEvent event) {
+    private void validationId(KeyEvent event) {
         String ClientID = clientID.getText();
         validateName(ClientID);
     }
 
     @FXML
-    private void validationPassword(ActionEvent event) {
+    private void validationPassword(KeyEvent event) {
         String ClientPassword = password.getText();
         validateName(ClientPassword);
     }
