@@ -76,7 +76,8 @@ public class seeAllProductsController {
     }
 
     private void verifySearchByID() {
-        searchByID.setText(validations.validateClientID(searchByID.getId()));
+        String id = searchByID.getText();
+        searchByID.setText(validations.validateClientID(id));
         searchByID.end();
     }
 
