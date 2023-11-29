@@ -21,6 +21,8 @@ import javafx.scene.control.CheckBox;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -100,24 +102,17 @@ public class clientWindowController {
         Gender clientGender = Gender.getGenderByName(gender.getValue());
         String clientPassword = password.getText();
 
-        if (!Services.getClientSearcher().userExists(clientId)) {
-            MessageWindow messageWindow = new MessageWindow();
-            messageWindow.showErrorMessage("Error", "The client don't exists, you must create one client first");
-            return;
-        }
+        saveImage(clientId);
 
         try {
-
             Token clientToken = Services.getTokenAuthenticationService().getToken(clientPassword);
 
             Services.getUserModificationService().modifyUserName(clientToken, clientName);
             Services.getUserModificationService().modifyUserGender(clientToken, clientGender);
-            Services.getUserModificationService().modifyUserPhoto(clientToken, imagePath);
 
         } catch (Exception e) {
             MessageWindow messageWindow = new MessageWindow();
-            messageWindow.showErrorMessage("Error", "Error!");
-            return;
+            messageWindow.showErrorMessage("Error", e.getMessage());
         }
     }
 
@@ -211,12 +206,12 @@ public class clientWindowController {
     @FXML
     private void buttonDeleteUser(ActionEvent event) {
         try {
-            String clientName = nameUser.getText();
-            String clientId= clientID.getText();
-            Gender clientGender = Gender.getGenderByName(gender.getValue());
-            String clientPassword = password.getText();
-            Token token = Services.getTokenAuthenticationService().getToken(clientPassword);
-            Services.getUserModificationService().modifyUser(token, clientName, clientPassword, clientGender, imagePath);
+            if (Services.getClientSearcher().userExists(clientID.getText()))
+                Services.getDeletionService().deleteClient(clientID.getText());
+            else {
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.showErrorMessage("Error", "Error! This client does not exist");
+            }
         } catch (Exception e) {
             MessageWindow messageWindow = new MessageWindow();
             messageWindow.showErrorMessage("Error", "Error!");
@@ -257,33 +252,48 @@ public class clientWindowController {
 
     @FXML
     private void buttonSaveChanges(ActionEvent event) {
-        if (validateAllFields(nameUser, clientID, password, sanvingsAccount, currentAccount, cdt, americanCard, visaCard, gender)) {
-            String clientName = nameUser.getText();
-            String clientId = clientID.getText();
-            Gender clientGender = Gender.getGenderByName(gender.getValue());
-            String clientPassword = password.getText();
-            if (clientGender == null) {
-                new MessageWindow().showErrorMessage("Error", "Invalid gender selected.");
-                return;
-            }
-
-            if (!Services.getClientSearcher().userExists(clientId)) {
-                Services.getUserCreationService().createClient(clientName, clientPassword, clientGender, clientId, imagePath);
-                Token clientToken = Services.getTokenAuthenticationService().getToken(clientPassword);
-                addSelectedProducts(clientToken);
-                saveClient();
-                new MessageWindow().showErrorMessage("Error", "Error! This client already exists");
-            } else {
-                try {
-                    new MessageWindow().showSuccessMessage("Success", "Client modified successfully");
-                    saveClient();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    new MessageWindow().showErrorMessage("Error", "Error! Unable to modify client");
-                }
-            }
-        } else {
-            new MessageWindow().showErrorMessage("Error", "Error! Please fill in all the required fields");
+        if (!validateAllFields(nameUser, clientID, password) || !validateAllChoiceBoxes(gender)) {
+            return;
         }
+        String clientId = clientID.getText();
+
+        if (!Services.getClientSearcher().userExists(clientId)) {
+            createClient(clientId);
+        } else {
+            saveClient();
+        }
+    }
+
+    private void createClient(String clientId) {
+        String clientName = nameUser.getText();
+        String clientPassword = password.getText();
+        Gender clientGender = Gender.getGenderByName(gender.getValue());
+
+
+
+        Services.getUserCreationService().createClient(clientName, clientPassword, clientGender, clientId);
+        Token clientToken = Services.getTokenAuthenticationService().getToken(clientPassword);
+        addSelectedProducts(clientToken);
+        saveImage(clientId);
+
+        MessageWindow messageWindow = new MessageWindow();
+        messageWindow.showErrorMessage("Error", "Error! This client already exists");
+
+        resetSelectedImage();
+    }
+
+    private void saveImage(String clientId) {
+        try {
+            Services.getImagePersistence().save(Path.of(imagePath), clientId);
+        } catch (IOException e) {
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "Unable to save client image");
+        }
+    }
+
+    private void resetSelectedImage() {
+        Image image = new Image("@../../../../../img/defaultProfile.png");
+        imagePath = "@../../../../../img/defaultProfile.png";
+        clientImage.setImage(image);
     }
 }
