@@ -99,11 +99,6 @@
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Button>
-      <Button fx:id="modify" layoutX="390.0" layoutY="410.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" styleClass="buttons" text="Modify">
-         <font>
-            <Font name="System Bold Italic" size="20.0" />
-         </font>
-      </Button>
       <Button fx:id="eliminate" layoutX="510.0" layoutY="410.0" mnemonicParsing="false" styleClass="buttons" text="Eliminate">
          <font>
             <Font name="System Bold Italic" size="20.0" />

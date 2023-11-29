@@ -1,3 +1,2 @@
-Uninitialized product,5561200697,5545645415,0.0,28-11-2023 20:33:14,Checking account
-Uninitialized product,0656743148,5545645415,0.0,28-11-2023 20:33:14,Savings account
-Uninitialized product,9245013652,5545645415,0.0,28-11-2023 20:33:14,CDT
+Account Savings,2122109416,1014739191,0.0,29-11-2023 00:00:00,Savings
+Uninitialized product,0094131042,1014739191,0.0,28-11-2023 22:33:07,American Express card

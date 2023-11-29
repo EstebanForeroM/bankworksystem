@@ -2,13 +2,14 @@ package com.bankworksystem.bankworksystem.frameworks.UI;
 
 import com.bankworksystem.bankworksystem.entities.Client;
 import com.bankworksystem.bankworksystem.entities.Gender;
+import com.bankworksystem.bankworksystem.entities.Product;
 import com.bankworksystem.bankworksystem.entities.products.ProductType;
+import com.bankworksystem.bankworksystem.entities.products.UninitializedProduct;
 import com.bankworksystem.bankworksystem.frameworks.Services;
 import com.bankworksystem.bankworksystem.useCases.Token;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -16,7 +17,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Box;
 import javafx.scene.control.CheckBox;
 import javafx.stage.FileChooser;
 
@@ -96,6 +96,8 @@ public class clientWindowController {
 
     private List<Client> actualClients;
 
+    private int index= 0;
+
     @FXML
     private void initialize() {
         actualClients = new ArrayList<>();
@@ -111,6 +113,7 @@ public class clientWindowController {
         resetSelectedImage();
 
         updateClients();
+        Services.addOnClientAddedListener(this::updateClients);
     }
 
     private void updateClients() {
@@ -194,10 +197,57 @@ public class clientWindowController {
 
     @FXML
     private void buttonRight(MouseEvent event) {
+        if (index < actualClients.size() - 1)
+            index++;
+        updateWithClient();
     }
 
     @FXML
     private void buttonLeft(MouseEvent event) {
+        if (index > 0)
+            index--;
+        updateWithClient();
+    }
+
+    private void updateWithClient() {
+        Client selectedClient = actualClients.get(index);
+        nameUser.setText(selectedClient.getName());
+        gender.setValue(selectedClient.getGender().getGenderName());
+        clientID.setText(selectedClient.getId());
+        Path pathToImage = Services.getImagePersistence().searchImageByClientId(selectedClient.getId());
+        Image image = new Image(pathToImage.toUri().toString());
+        clientImage.setImage(image);
+
+        setAllChoiceBoxesFalse();
+
+        Set<Product> productSet = Services.getProductSearcher().getProductsByUniqueOwner(selectedClient.getId());
+
+        for (Product product : productSet) {
+            ProductType productType = ProductType.getProductType(product);
+            if (productType == ProductType.UninitializedProduct) {
+                productType = ((UninitializedProduct) product).getProductType();
+            }
+
+            if (productType == ProductType.SAVINGS_ACCOUNT) {
+                sanvingsAccount.setSelected(true);
+            } else if (productType == ProductType.CHECKING_ACCOUNT) {
+                currentAccount.setSelected(true);
+            } else if (productType == ProductType.CDT) {
+                cdt.setSelected(true);
+            } else if (productType == ProductType.VISA_CARD) {
+                visaCard.setSelected(true);
+            } else if (productType == ProductType.AMERICAN_EXPRESS) {
+                americanCard.setSelected(true);
+            }
+        }
+    }
+
+    private void setAllChoiceBoxesFalse() {
+        sanvingsAccount.setSelected(false);
+        currentAccount.setSelected(false);
+        cdt.setSelected(false);
+        visaCard.setSelected(false);
+        americanCard.setSelected(false);
     }
 
     @FXML
@@ -211,13 +261,18 @@ public class clientWindowController {
         clientID.setText("");
         nameUser.setText("");
         password.setText("");
+
+        resetSelectedImage();
     }
 
     @FXML
     private void buttonDeleteUser(ActionEvent event) {
         try {
-            if (Services.getClientSearcher().userExists(clientID.getText()))
+            if (Services.getClientSearcher().userExists(clientID.getText())) {
                 Services.getDeletionService().deleteClient(clientID.getText());
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.showSuccessMessage("Success", "Client deleted successfully");
+            }
             else {
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.showErrorMessage("Error", "Error! This client does not exist");
@@ -281,12 +336,18 @@ public class clientWindowController {
 
 
 
-        Services.getUserCreationService().createClient(clientName, clientPassword, clientGender, clientId);
-        Token clientToken = Services.getTokenAuthenticationService().getToken(clientPassword);
-        addSelectedProducts(clientToken);
-        saveImage(clientId);
+        try {
+            Services.getUserCreationService().createClient(clientName, clientPassword, clientGender, clientId);
+            Token clientToken = Services.getTokenAuthenticationService().getToken(clientPassword);
+            addSelectedProducts(clientToken);
+            saveImage(clientId);
 
-        resetSelectedImage();
+            resetSelectedImage();
+        }
+        catch (Exception e) {
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", e.getMessage());
+        }
     }
 
     private void saveImage(String clientId) {
