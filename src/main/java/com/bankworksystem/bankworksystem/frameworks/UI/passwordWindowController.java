@@ -41,17 +41,16 @@ public class passwordWindowController {
     @FXML
     private void buttonPassword(ActionEvent event) {
         String Password = password.getText();
-        userToken = Services.getTokenAuthenticationService().getToken(Password);
-        if (!validateEnterPassword(Password)) {
+        try {
+            userToken = Services.getTokenAuthenticationService().getToken(Password);
+            String fxml = "transferentsWindow.fxml";
+            Node sourceNode = (Node) event.getSource();
+            Navigation navigation = Navigation.getInstance();
+            navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
+        } catch (Exception e) {
             MessageWindow messageWindow = new MessageWindow();
-            messageWindow.showErrorMessage("Error", "Invalid password. Please enter a valid password.");
-            return;
+            messageWindow.showErrorMessage("Error", e.getMessage());
         }
-        userToken = Services.getTokenAuthenticationService().getToken(Password);
-        String fxml = "transferentsWindow.fxml";
-        Node sourceNode = (Node) event.getSource();
-        Navigation navigation = Navigation.getInstance();
-        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
     }
 
     @FXML
