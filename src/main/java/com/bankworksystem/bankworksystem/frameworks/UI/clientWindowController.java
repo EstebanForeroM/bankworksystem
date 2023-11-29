@@ -257,37 +257,33 @@ public class clientWindowController {
 
     @FXML
     private void buttonSaveChanges(ActionEvent event) {
-        if (validateAllFields(nameUser, clientID, password, null, null, gender)) {
+        if (validateAllFields(nameUser, clientID, password, sanvingsAccount, currentAccount, cdt, americanCard, visaCard, gender)) {
             String clientName = nameUser.getText();
             String clientId = clientID.getText();
             Gender clientGender = Gender.getGenderByName(gender.getValue());
             String clientPassword = password.getText();
             if (clientGender == null) {
-                MessageWindow messageWindow = new MessageWindow();
-                messageWindow.showErrorMessage("Error", "Invalid gender selected.");
+                new MessageWindow().showErrorMessage("Error", "Invalid gender selected.");
                 return;
             }
+
             if (!Services.getClientSearcher().userExists(clientId)) {
                 Services.getUserCreationService().createClient(clientName, clientPassword, clientGender, clientId, imagePath);
                 Token clientToken = Services.getTokenAuthenticationService().getToken(clientPassword);
                 addSelectedProducts(clientToken);
-
-                MessageWindow messageWindow = new MessageWindow();
-                messageWindow.showErrorMessage("Error", "Error! This client already exists");
-                return;
+                saveClient();
+                new MessageWindow().showErrorMessage("Error", "Error! This client already exists");
+            } else {
+                try {
+                    new MessageWindow().showSuccessMessage("Success", "Client modified successfully");
+                    saveClient();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    new MessageWindow().showErrorMessage("Error", "Error! Unable to modify client");
+                }
             }
-
-            try {
-                MessageWindow messageWindow = new MessageWindow();
-                messageWindow.showErrorMessage("Success", "Client modified successfully");
-            } catch (Exception e) {
-                MessageWindow messageWindow = new MessageWindow();
-                messageWindow.showErrorMessage("Error", "Error! Unable to modify client");
-            }
-            saveClient();
         } else {
-            MessageWindow messageWindow = new MessageWindow();
-            messageWindow.showErrorMessage("Error", "Error! Please fill in all the required fields");
+            new MessageWindow().showErrorMessage("Error", "Error! Please fill in all the required fields");
         }
     }
 }

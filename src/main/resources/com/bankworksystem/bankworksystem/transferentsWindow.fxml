@@ -75,7 +75,7 @@
             <Image url="@../../../Images/logo.png" />
          </image>
       </ImageView>
-      <Label layoutX="562.0" layoutY="46.0" text="Name The Bank" textFill="#fcfcfc">
+      <Label layoutX="562.0" layoutY="46.0" text="Infinite Horizon Bank" textFill="#fcfcfc">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>

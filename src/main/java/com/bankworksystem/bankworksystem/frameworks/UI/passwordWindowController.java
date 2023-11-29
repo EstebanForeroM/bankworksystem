@@ -55,15 +55,7 @@ public class passwordWindowController {
     }
 
     @FXML
-    private void buttonImgPrincipalWindow(MouseEvent event) {
-        String fxml = "initWindow.fxml";
-        Node sourceNode = (Node) event.getSource();
-        Navigation navigation = Navigation.getInstance();
-        navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
-    }
-
-    @FXML
-    private void buttonImgReturnWindow(MouseEvent event) {
+    private void buttonExit(MouseEvent event) {
         String fxml = "initWindow.fxml";
         Node sourceNode = (Node) event.getSource();
         Navigation navigation = Navigation.getInstance();

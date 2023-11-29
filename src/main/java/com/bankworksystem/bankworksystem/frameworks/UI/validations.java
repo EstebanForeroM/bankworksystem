@@ -58,7 +58,7 @@ public class validations {
 
 
     public static boolean validateAllFields(TextField clientID, TextField name,TextField password,
-                                            CheckBox checkBox1, CheckBox checkBox2, ChoiceBox<String> choiceBox) {
+                                            CheckBox checkBox1, CheckBox checkBox2, CheckBox checkBox3, CheckBox checkBox4, CheckBox checkBox5, ChoiceBox<String> choiceBox) {
 
         if (clientID == null || clientID.getText().trim().isEmpty() ||
                 name == null || name.getText().trim().isEmpty() ||
@@ -66,7 +66,7 @@ public class validations {
             return false;
         }
 
-        if ((checkBox1 == null || !checkBox1.isSelected()) && (checkBox2 == null || !checkBox2.isSelected())) {
+        if ((checkBox1 == null || !checkBox1.isSelected()) && (checkBox2 == null || !checkBox2.isSelected()) && (checkBox3 == null || !checkBox3.isSelected()) && (checkBox4 == null || !checkBox4.isSelected()) && (checkBox5 == null || !checkBox5.isSelected())){
             messageWindow.showErrorMessage("Error", "At least one CheckBox must be selected.");
             return false;
         }
