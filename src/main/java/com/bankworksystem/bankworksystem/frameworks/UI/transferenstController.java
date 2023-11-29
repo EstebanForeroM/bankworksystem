@@ -65,6 +65,8 @@ public class transferenstController {
     private void initialize() {
         disableAllButtons();
         initializeClientTypes();
+        userToken = passwordWindowController.getUserToken();
+        loadClientProducts(userToken.getClientId());
     }
 
     private void loadClientProducts(String clientId) {

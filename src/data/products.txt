@@ -1,0 +1,5 @@
+Uninitialized product,9136744722,45345345,0.0,28-11-2023 22:03:27,American Express card
+Uninitialized product,0968124405,45345345,0.0,28-11-2023 22:03:27,CDT
+Uninitialized product,1871578772,45345345,0.0,28-11-2023 22:03:27,Checking account
+Uninitialized product,3788759192,45345345,0.0,28-11-2023 22:03:27,Savings account
+Uninitialized product,0131792262,45345345,0.0,28-11-2023 22:03:27,Visa card
