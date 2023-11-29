@@ -115,12 +115,11 @@
 
 .choice-box {
     -fx-font-size: 14px;
-    -fx-text-fill: #333333;
+    -fx-text-fill: #ffffff;
     -fx-background-color: #1f0d8a;
     -fx-border-color: #0a032d;
     -fx-border-width: 2px;
     -fx-border-radius: 10px;
-    -fx-text-fill: white;
 }
 
 .choice-box:hover {
