@@ -204,6 +204,7 @@ public class productWindowController {
     private void onProductSelected() {
         String selectedProduct = (String) searchProductOfClient.getValue();
         this.selectedProduct = actualProducts.get(selectedProduct);
+        resetFields();
         if (this.selectedProduct instanceof UninitializedProduct) {
             messageWindow.showSuccessMessage("Alert", "This product is not initialized");
             create.setText("Create product");
@@ -214,15 +215,25 @@ public class productWindowController {
             updateProductSpecificUI(this.selectedProduct);
     }
 
+    private void resetFields() {
+        numProduct.setText("");
+        balance.setText("");
+        termInMonths.setText("");
+        date.setValue(null);
+    }
+
     private void updateProductSpecificUI(Product product) {
 
         termInMonths.setDisable(true);
         numProduct.setText(this.selectedProduct.getId());
+        balance.setText(String.valueOf(this.selectedProduct.getBalance()));
+        date.setValue(this.selectedProduct.getOpeningDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         ProductType productType = ProductType.getProductType(product);
         if (productType == ProductType.UninitializedProduct) {
             productType = ((UninitializedProduct) product).getProductType();
         }
         if (productType == ProductType.CDT) {
+            termInMonths.setText(String.valueOf(((CDT) product).getExpirationMonths()));
             termInMonths.setDisable(false);
         }
     }
