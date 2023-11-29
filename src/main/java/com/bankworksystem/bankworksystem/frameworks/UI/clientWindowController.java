@@ -334,8 +334,6 @@ public class clientWindowController {
         String clientPassword = password.getText();
         Gender clientGender = Gender.getGenderByName(gender.getValue());
 
-
-
         try {
             Services.getUserCreationService().createClient(clientName, clientPassword, clientGender, clientId);
             Token clientToken = Services.getTokenAuthenticationService().getToken(clientPassword);

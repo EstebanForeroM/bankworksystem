@@ -75,7 +75,7 @@ public class transferenstController {
         typeOfProducts.setOnAction(event -> {
             ProductType selectedType = typeOfProducts.getValue();
             if (selectedType != null) {
-                initializeButtonsForTypeOfProducts(new UninitializedProduct.(selectedType));
+                //initializeButtonsForTypeOfProducts(new UninitializedProduct.(selectedType));
             }
         });
     }
