@@ -21,8 +21,8 @@
                   <Image url="@../../../Images/logo.png" />
                </image>
             </ImageView>
-            <Text fill="#fcf7f7" layoutX="560.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name The Bank" />
-            <ImageView fx:id="exit1" fitHeight="40.0" fitWidth="40.0" layoutX="614.0" layoutY="410.0" pickOnBounds="true" preserveRatio="true">
+            <Text fill="#fcf7f7" layoutX="560.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Infinite Horizon Bank" />
+            <ImageView fx:id="exit" fitHeight="40.0" fitWidth="40.0" layoutX="614.0" layoutY="410.0" onMouseClicked="#buttonExit" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../Images/boton-salir-a-la-aplicacion.png" />
                </image>
@@ -70,7 +70,7 @@
                                     <Image url="@../../../Images/logo.png" />
                                  </image>
                               </ImageView>
-                              <Text fill="#fcfcfc" layoutX="103.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name the Bank" />
+                              <Text fill="#fcfcfc" layoutX="103.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Infinite Horizon Bank" />
                               <ImageView fx:id="menu1" fitHeight="30.0" fitWidth="40.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#menuPanel" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../../Images/iconMenu.png" />

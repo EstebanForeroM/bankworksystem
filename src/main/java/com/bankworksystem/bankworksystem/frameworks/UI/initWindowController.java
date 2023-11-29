@@ -112,4 +112,9 @@ public class initWindowController {
         Navigation navigation = Navigation.getInstance();
         navigation.navigationWithException("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
     }
+
+    @FXML
+    private void buttonExit(MouseEvent event) {
+        System.exit(0);
+    }
 }
