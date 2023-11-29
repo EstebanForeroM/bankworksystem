@@ -28,6 +28,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -142,6 +143,63 @@ public class clientWindowController {
             MessageWindow messageWindow = new MessageWindow();
             messageWindow.showErrorMessage("Error", e.getMessage());
         }
+
+        saveProductChanges();
+
+        MessageWindow messageWindow = new MessageWindow();
+        messageWindow.showSuccessMessage("Success", "Client saved successfully");
+    }
+
+    private void saveProductChanges() {
+        Set<Product> productSet = Services.getProductSearcher().getProductsByUniqueOwner(clientID.getText());
+        Set<ProductType> productsAlreadyAdded = new HashSet<>();
+
+        for (Product product : productSet) {
+            ProductType productType = ProductType.getProductType(product);
+            if (productType == ProductType.UninitializedProduct) {
+                productType = ((UninitializedProduct) product).getProductType();
+            }
+
+            productsAlreadyAdded.add(productType);
+
+            if (productType == ProductType.SAVINGS_ACCOUNT) {
+                if (!sanvingsAccount.isSelected()) {
+                    Services.getDeletionService().deleteProduct(product.getId());
+                }
+            } else if (productType == ProductType.CHECKING_ACCOUNT) {
+                if (!currentAccount.isSelected()) {
+                    Services.getDeletionService().deleteProduct(product.getId());
+                }
+            } else if (productType == ProductType.CDT) {
+                if (!cdt.isSelected()) {
+                    Services.getDeletionService().deleteProduct(product.getId());
+                }
+            } else if (productType == ProductType.VISA_CARD) {
+                if (!visaCard.isSelected()) {
+                    Services.getDeletionService().deleteProduct(product.getId());
+                }
+            } else if (productType == ProductType.AMERICAN_EXPRESS) {
+                if (!americanCard.isSelected()) {
+                    Services.getDeletionService().deleteProduct(product.getId());
+                }
+            }
+        }
+
+        if (sanvingsAccount.isSelected())
+            if (!productsAlreadyAdded.contains(ProductType.SAVINGS_ACCOUNT))
+                Services.getProductCreationService().addProduct(Services.getTokenAuthenticationService().getToken(password.getText()), ProductType.SAVINGS_ACCOUNT);
+        if (currentAccount.isSelected())
+            if (!productsAlreadyAdded.contains(ProductType.CHECKING_ACCOUNT))
+                Services.getProductCreationService().addProduct(Services.getTokenAuthenticationService().getToken(password.getText()), ProductType.CHECKING_ACCOUNT);
+        if (cdt.isSelected())
+            if (!productsAlreadyAdded.contains(ProductType.CDT))
+                Services.getProductCreationService().addProduct(Services.getTokenAuthenticationService().getToken(password.getText()), ProductType.CDT);
+        if (visaCard.isSelected())
+            if (!productsAlreadyAdded.contains(ProductType.VISA_CARD))
+                Services.getProductCreationService().addProduct(Services.getTokenAuthenticationService().getToken(password.getText()), ProductType.VISA_CARD);
+        if (americanCard.isSelected())
+            if (!productsAlreadyAdded.contains(ProductType.AMERICAN_EXPRESS))
+                Services.getProductCreationService().addProduct(Services.getTokenAuthenticationService().getToken(password.getText()), ProductType.AMERICAN_EXPRESS);
     }
 
     private void addSelectedProducts(Token token) {

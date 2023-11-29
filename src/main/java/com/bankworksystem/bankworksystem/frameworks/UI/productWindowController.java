@@ -233,8 +233,9 @@ public class productWindowController {
             productType = ((UninitializedProduct) product).getProductType();
         }
         if (productType == ProductType.CDT) {
-            termInMonths.setText(String.valueOf(((CDT) product).getExpirationMonths()));
             termInMonths.setDisable(false);
+            if (product instanceof CDT)
+                termInMonths.setText(String.valueOf(((CDT) product).getExpirationMonths()));
         }
     }
 }
