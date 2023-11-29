@@ -72,6 +72,12 @@ public class seeAllProductsController {
         initializeProductsChoiceBox();
         initializeClientIdChoiceBox();
         setUpTable();
+        searchByID.setOnKeyTyped(e -> verifySearchByID());
+    }
+
+    private void verifySearchByID() {
+        searchByID.setText(validations.validateClientID(searchByID.getId()));
+        searchByID.end();
     }
 
     private void setUpTable() {
@@ -119,6 +125,7 @@ public class seeAllProductsController {
     private void initializeFilters() {
         searchByID.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredList.setPredicate(product -> {
+
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }

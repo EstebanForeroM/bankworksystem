@@ -66,6 +66,18 @@ public class productWindowController {
         numProduct.setDisable(true);
     }
 
+    private boolean comproveDate() {
+        LocalDate selectedDate = date.getValue();
+        LocalDate today = LocalDate.now();
+
+        if (selectedDate != null && selectedDate.isBefore(today)) {
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "Date is before today");
+            return false;
+        }
+        return true;
+    }
+
     private void onEliminateButtonClicked() {
         if (selectedProduct == null) {
             messageWindow.showErrorMessage("Error", "Product not selected");
@@ -115,6 +127,8 @@ public class productWindowController {
     }
 
     private void modifyProduct(Product product) {
+        if (!comproveDate())
+            return;
         String productId = product.getId();
         ProductType productType = ProductType.getProductType(product);
 
@@ -134,6 +148,8 @@ public class productWindowController {
     }
 
     private void initializeProduct(UninitializedProduct product) {
+        if (!comproveDate())
+            return;
         ProductType productType = product.getProductType();
 
         String productId = product.getId();
