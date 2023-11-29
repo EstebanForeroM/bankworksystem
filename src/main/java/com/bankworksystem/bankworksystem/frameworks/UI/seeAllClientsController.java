@@ -13,9 +13,12 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.File;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
 
@@ -44,6 +47,9 @@ public class seeAllClientsController {
 
     @FXML
     private ImageView returnWindow;
+
+    @FXML
+    private ImageView selectedUserImages;
 
     @FXML
     private TextField searchByName;
@@ -159,6 +165,29 @@ public class seeAllClientsController {
             });
         });
     }
+
+    @FXML
+    private void imagenClient(MouseEvent event) {
+        if (event.getClickCount() == 1) {
+            Client selectedClient = tableClient.getSelectionModel().getSelectedItem();
+            if (selectedClient != null) {
+                String ownerId = selectedClient.getId(); // Asegúrate de tener un método getId() en tu clase Client
+                loadClientImage(ownerId);
+            }
+        }
+    }
+
+    private void loadClientImage(String clientId) {
+        Image clientImage = getClientImage(clientId);
+        selectedUserImages.setImage(clientImage);
+    }
+
+    private Image getClientImage(String clientId) {
+        Path imagePath = Services.getImagePersistence().searchImageByClientId(clientId);
+        File file = imagePath.toFile();
+        return new Image(file.toURI().toString());
+    }
+
     @FXML
     private void buttonImgPrincipalWindow(MouseEvent event) {
         String fxml = "initWindow.fxml";
