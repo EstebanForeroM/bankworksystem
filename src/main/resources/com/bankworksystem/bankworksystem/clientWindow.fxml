@@ -33,9 +33,7 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <StackPane>
-                     <ImageView fx:id="clientImage" fitHeight="168.0" fitWidth="212.0" layoutX="21.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true" styleClass="circular-image" />
-                  </StackPane>
+                  <ImageView fx:id="clientImage" fitHeight="168.0" fitWidth="212.0" layoutX="21.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true" styleClass="circular-image" />
                   <Button fx:id="searchImg" layoutX="30.0" layoutY="320.0" mnemonicParsing="false" onAction="#buttonSearchImg" prefHeight="25.0" prefWidth="192.0" styleClass="generalButtons" text="Search Picture">
                      <font>
                         <Font name="System Italic" size="12.0" />

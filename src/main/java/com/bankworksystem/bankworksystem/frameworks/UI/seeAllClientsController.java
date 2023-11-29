@@ -161,7 +161,6 @@ public class seeAllClientsController {
             });
         });
     }
-
     @FXML
     private void buttonImgPrincipalWindow(MouseEvent event) {
         String fxml = "initWindow.fxml";
