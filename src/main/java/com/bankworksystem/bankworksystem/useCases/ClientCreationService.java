@@ -21,8 +21,8 @@ public class ClientCreationService {
     /*
      * @return id of the created client
      */
-    public void createClient(String name, String password, Gender gender, String clientId, String fileImagePath) {
-        validateParametersNotNull(clientId, name, gender, password, fileImagePath);
+    public void createClient(String name, String password, Gender gender, String clientId) {
+        validateParametersNotNull(clientId, name, gender, password);
         comproveId(clientId);
         passwordManager.validatePassword(password);
         Client client = new Client(clientId, name, gender, password);

@@ -23,7 +23,7 @@ public class ProductSerializer implements Serializer<Product> {
     }
 
     private String serializeGeneralProduct(Product product) {
-        return product.getProductName() +                    SEPARATOR
+        return (product instanceof UninitializedProduct ? "Uninitialized product" : product.getProductName()) +                    SEPARATOR
                 + product.getId() +                          SEPARATOR
                 + product.getOwnerId() +                     SEPARATOR
                 + product.getBalance() +                     SEPARATOR
@@ -81,18 +81,16 @@ public class ProductSerializer implements Serializer<Product> {
                 .setOpeningDate(splitString[4])
                 .setProductName(splitString[0]);
 
-        switch (productData.getProductName()) {
-            case "CDT":
-                return deserializeCDT(productData ,splitString[5]);
-            case "Account":
-                return deserializeAccount(productData ,splitString[5]);
-            case "Card":
-                return deserializeCard(productData ,splitString[5]);
-            case "Uninitialized product":
-                return deserializeUninitializedProduct(productData, splitString[5]);
-            default:
-                throw new IllegalArgumentException("Product is not a valid type");
-        }
+        if (productData.getProductName().contains("CDT"))
+            return deserializeCDT(productData, splitString[5]);
+        else if (productData.getProductName().contains("Account"))
+            return deserializeAccount(productData, splitString[5]);
+        else if (productData.getProductName().contains("Card"))
+            return deserializeCard(productData, splitString[5]);
+        else if (productData.getProductName().contains("Uninitialized product"))
+            return deserializeUninitializedProduct(productData, splitString[5]);
+        else
+            throw new IllegalArgumentException("Product is not a valid type");
     }
 
     private Product deserializeUninitializedProduct(ProductData productData, String productType) {

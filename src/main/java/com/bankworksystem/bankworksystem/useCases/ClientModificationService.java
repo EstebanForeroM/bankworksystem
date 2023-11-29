@@ -19,30 +19,24 @@ public class ClientModificationService {
     }
 
     public void modifyUserName(Token token, String name) {
-        userModification(token, name, null, null, null);
-    }
-
-    public void modifyUserPhoto(Token token, String photoPath) {
-        userModification(token, null, null, null, photoPath);
-        Client client = clientRepository.getClient(token.getClientId());
-        clientRepository.updateClient(token.getClientId(), client);
+        userModification(token, name, null, null);
     }
 
     public void modifyUserPassword(Token token, String passWord) {
         passwordManager.validatePassword(passWord);
-        userModification(token, null, passWord, null, null);
+        userModification(token, null, passWord, null);
     }
 
     public void modifyUserGender(Token token, Gender gender) {
-        userModification(token, null, null, gender, null);
+        userModification(token, null, null, gender);
     }
 
-    public void modifyUser(Token token, String name, String password, Gender gender, String photoPath) {
+    public void modifyUser(Token token, String name, String password, Gender gender) {
         passwordManager.validatePassword(password);
-        userModification(token, name, password, gender, photoPath);
+        userModification(token, name, password, gender);
     }
 
-    private void userModification(Token token, String name, String password, Gender gender, String photoPath) {
+    private void userModification(Token token, String name, String password, Gender gender) {
         validateToken(token);
         Client client = clientRepository.getClient(token.getClientId());
         if (name != null)
