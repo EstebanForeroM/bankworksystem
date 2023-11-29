@@ -197,6 +197,8 @@ public class clientWindowController {
 
     @FXML
     private void buttonRight(MouseEvent event) {
+        if (actualClients.isEmpty())
+            return;
         if (index < actualClients.size() - 1)
             index++;
         updateWithClient();
@@ -204,6 +206,8 @@ public class clientWindowController {
 
     @FXML
     private void buttonLeft(MouseEvent event) {
+        if (actualClients.isEmpty())
+            return;
         if (index > 0)
             index--;
         updateWithClient();

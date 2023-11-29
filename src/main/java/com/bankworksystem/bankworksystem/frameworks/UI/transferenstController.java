@@ -54,7 +54,7 @@ public class transferenstController {
     private Button withdrawals;
 
     @FXML
-    private ChoiceBox<ProductType> typeOfProducts;
+    private ChoiceBox<String> typeOfProducts;
 
 
     private ObservableList<ProductType> productTypes = FXCollections.observableArrayList(ProductType.values());
@@ -118,7 +118,7 @@ public class transferenstController {
         }
 
         typeOfProducts.getItems().clear();
-        typeOfProducts.getItems().addAll(ProductType.valueOf(productName));
+        typeOfProducts.getItems().addAll(productNames);
     }
 
     private void initializeClientTypes() {
