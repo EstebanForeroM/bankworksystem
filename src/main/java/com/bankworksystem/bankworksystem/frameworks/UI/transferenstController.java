@@ -5,6 +5,8 @@ import com.bankworksystem.bankworksystem.entities.products.ProductType;
 import com.bankworksystem.bankworksystem.entities.products.UninitializedProduct;
 import com.bankworksystem.bankworksystem.frameworks.Services;
 import com.bankworksystem.bankworksystem.useCases.Token;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -49,10 +51,14 @@ public class transferenstController {
     private Button shangePassword;
 
     @FXML
-    private ChoiceBox <String> typeOfProducts;
+    private Button withdrawals;
 
     @FXML
-    private Button withdrawals;
+    private ChoiceBox<ProductType> typeOfProducts;
+
+
+    private ObservableList<ProductType> productTypes = FXCollections.observableArrayList(ProductType.values());
+
 
     private HashMap<String, Product> actualProducts = new HashMap<>();
 
@@ -66,6 +72,12 @@ public class transferenstController {
         initializeClientTypes();
         userToken = passwordWindowController.getUserToken();
         loadClientProducts(userToken.getClientId());
+        typeOfProducts.setOnAction(event -> {
+            ProductType selectedType = typeOfProducts.getValue();
+            if (selectedType != null) {
+                initializeButtonsForTypeOfProducts(new UninitializedProduct.(selectedType));
+            }
+        });
     }
 
     private void loadClientProducts(String clientId) {
@@ -75,9 +87,10 @@ public class transferenstController {
         String[] productNames = new String[productList.size()];
 
         int i = 0;
+        String productName = null;
         for (Product product : productList) {
             ProductType productType = ProductType.getProductType(product);
-            String productName = Objects.equals(productType.getName(), ProductType.UninitializedProduct.getName()) ?
+            productName = Objects.equals(productType.getName(), ProductType.UninitializedProduct.getName()) ?
                     ((UninitializedProduct) product).getProductType().getName() : productType.getName();
             productNames[i] = productName;
             actualProducts.put(productName, product);
@@ -85,7 +98,7 @@ public class transferenstController {
         }
 
         typeOfProducts.getItems().clear();
-        typeOfProducts.getItems().addAll(productNames);
+        typeOfProducts.getItems().addAll(ProductType.valueOf(productName));
     }
 
     private void initializeClientTypes() {
@@ -116,14 +129,12 @@ public class transferenstController {
             case CHECKING_ACCOUNT:
                 enableButtons(withdrawals, deposit, balance);
                 break;
-
             case VISA_CARD:
                 enableButtons(buy, payments, balance, advance);
                 break;
             case AMERICAN_EXPRESS:
                 enableButtons(buy, payments, balance, advance);
                 break;
-
             case SAVINGS_ACCOUNT:
                 enableButtons(withdrawals, deposit, balance);
                 break;
@@ -306,7 +317,7 @@ public class transferenstController {
             }
 
             typeOfProducts.getItems().clear();
-            typeOfProducts.getItems().addAll(productNames);
+            typeOfProducts.getItems().addAll(ProductType.values());
         } catch (Exception e) {
             e.printStackTrace();
         }
