@@ -96,6 +96,27 @@ public class clientWindowController {
 
     private List<Client> actualClients;
 
+    @FXML
+    private void initialize() {
+        actualClients = new ArrayList<>();
+        Services.addOnClientAddedListener(this::clientListChanges);
+        imagePath = "@../../../../../img/defaultProfile.png";
+        Gender[] genders = Gender.values();
+        String[] genderNames = new String[genders.length];
+        for (int i = 0; i < genderNames.length; i++) {
+            genderNames[i] = genders[i].getGenderName();
+        }
+        gender.getItems().addAll(genderNames);
+        clientListChanges();
+        resetSelectedImage();
+
+        updateClients();
+    }
+
+    private void updateClients() {
+        actualClients = Services.getClientSearcher().getClients();
+    }
+
     private void clientListChanges() {
         actualClients = Services.getClientSearcher().getClients();
     }
@@ -136,21 +157,6 @@ public class clientWindowController {
         if (americanCard.isSelected()) {
             Services.getProductCreationService().addProduct(token, ProductType.AMERICAN_EXPRESS);
         }
-    }
-
-    @FXML
-    private void initialize() {
-        actualClients = new ArrayList<>();
-        Services.addOnClientAddedListener(this::clientListChanges);
-        imagePath = "@../../../../../img/defaultProfile.png";
-        Gender[] genders = Gender.values();
-        String[] genderNames = new String[genders.length];
-        for (int i = 0; i < genderNames.length; i++) {
-            genderNames[i] = genders[i].getGenderName();
-        }
-        gender.getItems().addAll(genderNames);
-        clientListChanges();
-        resetSelectedImage();
     }
 
     @FXML

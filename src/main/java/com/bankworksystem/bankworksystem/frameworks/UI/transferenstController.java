@@ -110,10 +110,9 @@ public class transferenstController {
 
     private void initializeButtonsForTypeOfProducts(UninitializedProduct product) {
         ProductType productType = product.getProductType();
-
+        disableAllButtons();
         switch (productType) {
             case CDT:
-                disableAllButtons();
                 break;
             case CHECKING_ACCOUNT:
                 enableButtons(withdrawals, deposit, balance);
