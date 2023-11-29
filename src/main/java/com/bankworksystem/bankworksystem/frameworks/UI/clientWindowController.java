@@ -150,7 +150,6 @@ public class clientWindowController {
 
     @FXML
     private void buttonImgPrincipalWindow(MouseEvent event) {
-        System.out.println("buttonImgPrincipalWindow");
             String fxml = "initWindow.fxml";
             Node sourceNode = (Node) event.getSource();
             Navigation navigation = Navigation.getInstance();

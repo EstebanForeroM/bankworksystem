@@ -54,7 +54,6 @@ public class transferenstController {
     @FXML
     private Button withdrawals;
 
-
     private HashMap<String, Product> actualProducts = new HashMap<>();
 
     private String actualClientId;

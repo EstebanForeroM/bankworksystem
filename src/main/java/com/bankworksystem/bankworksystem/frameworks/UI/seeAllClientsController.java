@@ -110,11 +110,9 @@ public class seeAllClientsController {
                 if (newValue == null || newValue.isEmpty() || newValue.equals("all")) {
                     return true;
                 }
-
                 if (client.getGender().name().equals(newValue)) {
                     return true;
                 }
-
                 return false;
             });
         });

@@ -51,6 +51,9 @@
          </font>
       </Label>
       <ChoiceBox fx:id="products" layoutX="435.0" layoutY="82.0" prefWidth="150.0" />
-         <ImageView fx:id="selectedUserImages" fitHeight="313.0" fitWidth="245.0" layoutX="628.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true" style="-fx-alignment: center" />
+         <ImageView fx:id="selectedUserImages" fitHeight="250.0" fitWidth="300.0" layoutX="615.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" style="-fx-alignment: center">
+         <image>
+            <Image/>
+         </image></ImageView>
    </children>
 </AnchorPane>

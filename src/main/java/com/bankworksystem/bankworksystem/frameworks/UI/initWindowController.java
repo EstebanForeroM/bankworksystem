@@ -89,7 +89,7 @@ public class initWindowController {
     }
 
     @FXML
-    private void buttonmanagementClient(ActionEvent event) throws IOException {
+    private void buttonmanagementClient(ActionEvent event) {
         String fxml = "clientWindow.fxml";
         Node sourceNode = (Node) event.getSource();
         Navigation navigation = Navigation.getInstance();
@@ -98,7 +98,7 @@ public class initWindowController {
 
 
     @FXML
-    private void buttonmanagementProducts(ActionEvent event) throws IOException {
+    private void buttonmanagementProducts(ActionEvent event) {
         String fxml = "productWindow.fxml";
         Node sourceNode = (Node) event.getSource();
         Navigation navigation = Navigation.getInstance();
@@ -106,7 +106,7 @@ public class initWindowController {
     }
 
     @FXML
-    private void buttontransferenst(ActionEvent event) throws IOException {
+    private void buttontransferenst(ActionEvent event) {
         String fxml = "passwordWindow.fxml";
         Node sourceNode = (Node) event.getSource();
         Navigation navigation = Navigation.getInstance();

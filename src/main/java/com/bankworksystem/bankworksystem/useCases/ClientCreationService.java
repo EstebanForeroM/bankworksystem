@@ -43,5 +43,4 @@ public class ClientCreationService {
             throw new RuntimeException("Id already exists");
         }
     }
-
 }
