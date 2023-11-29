@@ -40,7 +40,7 @@ public class ImagePersistence {
             try {
                 Files.delete(imagePath);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
     }

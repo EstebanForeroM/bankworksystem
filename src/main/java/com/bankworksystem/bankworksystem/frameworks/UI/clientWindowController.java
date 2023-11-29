@@ -22,7 +22,11 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -146,6 +150,7 @@ public class clientWindowController {
         }
         gender.getItems().addAll(genderNames);
         clientListChanges();
+        resetSelectedImage();
     }
 
     @FXML
@@ -275,15 +280,23 @@ public class clientWindowController {
         addSelectedProducts(clientToken);
         saveImage(clientId);
 
-        MessageWindow messageWindow = new MessageWindow();
-        messageWindow.showErrorMessage("Error", "Error! This client already exists");
-
         resetSelectedImage();
     }
 
     private void saveImage(String clientId) {
         try {
-            Services.getImagePersistence().save(Path.of(imagePath), clientId);
+            URI uri = new URI(imagePath);
+            if (!uri.isAbsolute()) {
+                throw new IllegalArgumentException("URI is not absolute: " + imagePath);
+            }
+            Path path = Paths.get(uri);
+            Services.getImagePersistence().save(path, clientId);
+        } catch (URISyntaxException e) {
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "Invalid image path or URL");
+        } catch (IllegalArgumentException e) {
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", e.getMessage());
         } catch (IOException e) {
             MessageWindow messageWindow = new MessageWindow();
             messageWindow.showErrorMessage("Error", "Unable to save client image");
@@ -291,8 +304,15 @@ public class clientWindowController {
     }
 
     private void resetSelectedImage() {
-        Image image = new Image("@../../../../../img/defaultProfile.png");
-        imagePath = "@../../../../../img/defaultProfile.png";
-        clientImage.setImage(image);
+        URL imageUrl = getClass().getResource("/Images/defaultImage.png");
+        if (imageUrl != null) {
+            imagePath = imageUrl.toString();
+            Image image = new Image(imagePath);
+            clientImage.setImage(image);
+        } else {
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "Default image not found");
+        }
     }
+
 }

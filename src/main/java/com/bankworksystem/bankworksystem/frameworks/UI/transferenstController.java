@@ -58,9 +58,36 @@ public class transferenstController {
 
     private String actualClientId;
 
+    private Token userToken;
+
     @FXML
     private void initialize() {
         disableAllButtons();
+        initializeClientTypes();
+    }
+
+    private void loadClientProducts(String clientId) {
+
+        Set<Product> productList = Services.getProductSearcher().getProductsByUniqueOwner(clientId);
+
+        String[] productNames = new String[productList.size()];
+
+        int i = 0;
+        for (Product product : productList) {
+            ProductType productType = ProductType.getProductType(product);
+            String productName = Objects.equals(productType.getName(), ProductType.UninitializedProduct.getName()) ?
+                    ((UninitializedProduct) product).getProductType().getName() : productType.getName();
+            productNames[i] = productName;
+            actualProducts.put(productName, product);
+            i++;
+        }
+
+        typeOfProducts.getItems().clear();
+        typeOfProducts.getItems().addAll(productNames);
+    }
+
+    private void initializeClientTypes() {
+        userToken = passwordWindowController.getUserToken();
     }
 
     private void disableAllButtons() {
@@ -124,7 +151,7 @@ public class transferenstController {
         Optional<String> result = showTextInputDialog("Enter the amount to advance", "Advance", "Please enter the amount to advance:");
         result.ifPresent(amount -> {
             String productId = actualProducts.get(typeOfProducts.getValue()).getId();
-            Services.getTransactionService().withdraw(passwordWindowController.getUserToken(),productId, Double.parseDouble(amount));
+            Services.getTransactionService().withdraw(userToken,productId, Double.parseDouble(amount));
             MessageWindow messageWindow = new MessageWindow();
             messageWindow.showSuccessMessage("Information", "Your advance has been made successfully.");
         });
@@ -166,7 +193,7 @@ public class transferenstController {
                 double buyAmount = Double.parseDouble(result.get());
                 if (validateTransactionAmount(buyAmount)) {
                     String productId = actualProducts.get(typeOfProducts.getValue()).getId();
-                    Services.getTransactionService().withdraw(passwordWindowController.getUserToken(),productId, buyAmount);
+                    Services.getTransactionService().withdraw(userToken,productId, buyAmount);
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.showSuccessMessage("Information", "Your buy has been made successfully.");
                 } else {
@@ -192,7 +219,7 @@ public class transferenstController {
                 double depositAmount = Double.parseDouble(result.get());
                 if (validateTransactionAmount(depositAmount)) {
                     String productId = actualProducts.get(typeOfProducts.getValue()).getId();
-                    Services.getTransactionService().deposit(passwordWindowController.getUserToken(),productId, depositAmount);
+                    Services.getTransactionService().deposit(userToken,productId, depositAmount);
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.showSuccessMessage("Information", "Your deposit has been made successfully.");
                 } else {
@@ -218,7 +245,7 @@ public class transferenstController {
                 double paymentAmount = Double.parseDouble(result.get());
                 if (validateTransactionAmount(paymentAmount)) {
                     String productId = actualProducts.get(typeOfProducts.getValue()).getId();
-                    Services.getTransactionService().deposit(passwordWindowController.getUserToken(),productId, paymentAmount);
+                    Services.getTransactionService().deposit(userToken,productId, paymentAmount);
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.showSuccessMessage("Information", "Your payment has been made successfully.");
                 } else {
@@ -242,7 +269,7 @@ public class transferenstController {
         if (result.isPresent() && !result.get().isEmpty()) {
             String newPassword = result.get();
             if (validatePassword(newPassword)) {
-                Token token = passwordWindowController.getUserToken();
+                Token token = userToken;
                 Services.getUserModificationService().modifyUserPassword(token, newPassword);
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.showSuccessMessage("Information", "Your password has been changed successfully.");
@@ -255,7 +282,7 @@ public class transferenstController {
         Optional<String> result = showTextInputDialog("Enter the amount to withdraw", "Withdraw", "Please enter the amount to withdraw:");
         result.ifPresent(amount -> {
             String productId = actualProducts.get(typeOfProducts.getValue()).getId();
-            Services.getTransactionService().withdraw(passwordWindowController.getUserToken(),productId, Double.parseDouble(amount));
+            Services.getTransactionService().withdraw(userToken,productId, Double.parseDouble(amount));
             MessageWindow messageWindow = new MessageWindow();
             messageWindow.showSuccessMessage("Information", "Your withdrawal has been made successfully.");
         });
