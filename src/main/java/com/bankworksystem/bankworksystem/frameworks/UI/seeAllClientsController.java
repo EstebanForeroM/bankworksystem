@@ -13,12 +13,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-import java.io.File;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
 
@@ -50,9 +47,6 @@ public class seeAllClientsController {
 
     @FXML
     private TextField searchByName;
-
-    @FXML
-    private ImageView selectedUserImages;
 
     ObservableList<Client> clientList;
     FilteredList<Client> filteredList;
@@ -179,27 +173,5 @@ public class seeAllClientsController {
         Node sourceNode = (Node) event.getSource();
         Navigation navigation = Navigation.getInstance();
         navigation.navigateToRemplaceScene("/com/bankworksystem/bankworksystem/" + fxml, sourceNode);
-    }
-
-    @FXML
-    private void imageFromClient(MouseEvent event) {
-        if (event.getClickCount() == 1) {
-            Client selectedClient = tableClient.getSelectionModel().getSelectedItem();
-            if (selectedClient != null) {
-                String ownerId = selectedClient.getId();
-                loadClientImage(ownerId);
-            }
-        }
-    }
-
-    private void loadClientImage(String clientId) {
-        Image clientImage = getClientImage(clientId);
-        selectedUserImages.setImage(clientImage);
-    }
-
-    private Image getClientImage(String clientId) {
-        Path pathToImage = Services.getImagePersistence().searchImageByClientId(clientId);
-        Image image = new Image(pathToImage.toUri().toString());
-        return image;
     }
 }
