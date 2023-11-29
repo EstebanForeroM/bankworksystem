@@ -26,7 +26,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <TableView fx:id="tableClient" layoutX="54.0" layoutY="132.0" prefHeight="320.0" prefWidth="553.0" styleClass="table-column" stylesheets="@styleWindows.css">
+      <TableView fx:id="tableClient" layoutX="54.0" layoutY="132.0" onMouseClicked="#imageFromClient" prefHeight="320.0" prefWidth="553.0" styleClass="table-column" stylesheets="@styleWindows.css">
         <columns>
           <TableColumn fx:id="columnID" prefWidth="150.0" text="ID" />
           <TableColumn fx:id="columnName" minWidth="0.0" prefWidth="266.0" text="Name" />
@@ -51,9 +51,7 @@
          </font>
       </Label>
       <ChoiceBox fx:id="products" layoutX="435.0" layoutY="82.0" prefWidth="150.0" />
-         <ImageView fx:id="selectedUserImages" fitHeight="250.0" fitWidth="300.0" layoutX="615.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" style="-fx-alignment: center">
-         <image>
-            <Image/>
-         </image></ImageView>
+      <ImageView fx:id="selectedUserImages" fitHeight="250.0" fitWidth="300.0" layoutX="615.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" style="-fx-alignment: center">
+      </ImageView>
    </children>
 </AnchorPane>

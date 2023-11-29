@@ -155,10 +155,23 @@ public class productWindowController {
     }
 
     public Date convertLocalDateToDate(LocalDate localDate) {
+        LocalDate currentDate = LocalDate.now();
+
+        if (localDate.isBefore(currentDate)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("The date cannot be earlier than the current date");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            return null;
+        }
         return Date.from(localDate.atStartOfDay()
                 .atZone(ZoneId.systemDefault())
                 .toInstant());
     }
+
 
 
     private void loadClientProducts(String clientId) {
