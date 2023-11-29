@@ -64,6 +64,8 @@ public class transferenstController {
     private void initialize() {
         disableAllButtons();
         initializeClientTypes();
+        userToken = passwordWindowController.getUserToken();
+        loadClientProducts(userToken.getClientId());
     }
 
     private void loadClientProducts(String clientId) {
@@ -107,10 +109,9 @@ public class transferenstController {
 
     private void initializeButtonsForTypeOfProducts(UninitializedProduct product) {
         ProductType productType = product.getProductType();
-
+        disableAllButtons();
         switch (productType) {
             case CDT:
-                disableAllButtons();
                 break;
             case CHECKING_ACCOUNT:
                 enableButtons(withdrawals, deposit, balance);
