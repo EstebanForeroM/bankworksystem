@@ -61,6 +61,19 @@ public class productWindowController {
         clientId.setOnAction(e -> onClientIdEntered());
         seachByID.setOnAction(e -> onClientIdEntered());
         searchProductOfClient.setOnAction(e -> onProductSelected());
+        eliminate.setOnAction(e -> onEliminateButtonClicked());
+
+        numProduct.setDisable(true);
+    }
+
+    private void onEliminateButtonClicked() {
+        if (selectedProduct == null) {
+            messageWindow.showErrorMessage("Error", "Product not selected");
+            return;
+        }
+
+        Services.getDeletionService().deleteProduct(selectedProduct.getId());
+        messageWindow.showSuccessMessage("Success", "Product deleted");
     }
 
     @FXML
@@ -88,6 +101,12 @@ public class productWindowController {
     }
 
     private void onCreateButtonClicked() {
+        if (!validations.validateAllFields(numProduct, balance))
+            return;
+        if (date.getValue() == null) {
+            messageWindow.showErrorMessage("Error", "Date is empty");
+            return;
+        }
         if (selectedProduct instanceof UninitializedProduct) {
             initializeProduct((UninitializedProduct) selectedProduct);
         } else {
@@ -102,6 +121,10 @@ public class productWindowController {
         ProductModificationService productModificationService = Services.getProductModificationService();
 
         if (productType == ProductType.CDT)
+            if (termInMonths.getText() == null || termInMonths.getText().isEmpty()) {
+                messageWindow.showErrorMessage("Error", "Term in months is empty");
+                return;
+            }
             productModificationService.modifyCDTTimePeriod(productId, Integer.parseInt(termInMonths.getText()));
 
         productModificationService.modifyProductBalance(productId, Double.parseDouble(balance.getText()));
@@ -127,6 +150,8 @@ public class productWindowController {
                 break;
         }
         messageWindow.showSuccessMessage("Success", "Product created");
+
+        loadClientProducts(actualClientId);
     }
 
     public Date convertLocalDateToDate(LocalDate localDate) {
@@ -180,15 +205,21 @@ public class productWindowController {
         } else {
             create.setText("Modify product");
         }
-        updateProductSpecificUI(this.selectedProduct);
+        if (selectedProduct != null)
+            updateProductSpecificUI(this.selectedProduct);
     }
 
     private void updateProductSpecificUI(Product product) {
 
         termInMonths.setDisable(true);
         numProduct.setText(this.selectedProduct.getId());
-        if (product instanceof CDT)
+        ProductType productType = ProductType.getProductType(product);
+        if (productType == ProductType.UninitializedProduct) {
+            productType = ((UninitializedProduct) product).getProductType();
+        }
+        if (productType == ProductType.CDT) {
             termInMonths.setDisable(false);
+        }
     }
 }
 
