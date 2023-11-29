@@ -221,7 +221,7 @@ public class transferenstController {
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.showErrorMessage("Error", "Invalid buy amount. Please enter a valid amount.");
                 }
-            } catch (NumberFormatException e) {
+            } catch (Exception e) {
                 MessageWindow messageWindow = new MessageWindow();
                 messageWindow.showErrorMessage("Error", e.getMessage());
             }
