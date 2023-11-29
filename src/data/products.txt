@@ -1,2 +1,5 @@
-Account Savings,2122109416,1014739191,0.0,29-11-2023 00:00:00,Savings
-Uninitialized product,0094131042,1014739191,0.0,28-11-2023 22:33:07,American Express card
+Uninitialized product,9869177342,1014739191,0.0,28-11-2023 23:30:51,Checking account
+Uninitialized product,3253348467,1014739191,0.0,28-11-2023 23:30:51,CDT
+Uninitialized product,5723051880,1014739191,0.0,28-11-2023 23:30:51,Savings account
+Uninitialized product,2162885872,1014739191,0.0,28-11-2023 23:30:51,Visa card
+Card American Express,1267190923,1014739191,0.0,30-11-2023 00:00:00,American Express

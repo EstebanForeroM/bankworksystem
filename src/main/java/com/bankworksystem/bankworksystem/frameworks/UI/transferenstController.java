@@ -61,12 +61,38 @@ public class transferenstController {
 
     private Token userToken;
 
+    private Product selectedProduct;
+
     @FXML
     private void initialize() {
         disableAllButtons();
         initializeClientTypes();
         userToken = passwordWindowController.getUserToken();
         loadClientProducts(userToken.getClientId());
+        typeOfProducts.setOnAction(e -> updateSelectedProduct());
+    }
+
+    private void updateSelectedProduct() {
+        String clientId = userToken.getClientId();
+        ProductType productType = ProductType.getProductType(actualProducts.get(typeOfProducts.getValue()));
+
+        Set<Product> products = Services.getProductSearcher().getProductsByUniqueOwner(clientId);
+
+        if (productType == ProductType.UninitializedProduct) {
+            MessageWindow messageWindow = new MessageWindow();
+            messageWindow.showErrorMessage("Error", "The selected product is not initialized.\n Create the product first or select another one.");
+        }
+
+        for (Product product : products) {
+            ProductType productType1 = ProductType.getProductType(product);
+
+            if (productType1 == productType) {
+                selectedProduct = product;
+                break;
+            }
+        }
+
+        initializeButtonsForTypeOfProducts(productType);
     }
 
     private void loadClientProducts(String clientId) {
@@ -108,8 +134,7 @@ public class transferenstController {
         }
     }
 
-    private void initializeButtonsForTypeOfProducts(UninitializedProduct product) {
-        ProductType productType = product.getProductType();
+    private void initializeButtonsForTypeOfProducts(ProductType productType) {
         disableAllButtons();
         switch (productType) {
             case CDT:
@@ -152,37 +177,26 @@ public class transferenstController {
     private void buttonAdvance(ActionEvent event) {
         Optional<String> result = showTextInputDialog("Enter the amount to advance", "Advance", "Please enter the amount to advance:");
         result.ifPresent(amount -> {
-            String productId = actualProducts.get(typeOfProducts.getValue()).getId();
-            Services.getTransactionService().withdraw(userToken,productId, Double.parseDouble(amount));
-            MessageWindow messageWindow = new MessageWindow();
-            messageWindow.showSuccessMessage("Information", "Your advance has been made successfully.");
+            try
+            {
+                Double amountDouble = Double.parseDouble(amount);
+                String productId = actualProducts.get(typeOfProducts.getValue()).getId();
+                Services.getTransactionService().withdraw(userToken,productId, amountDouble);
+                updateSelectedProduct();
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.showSuccessMessage("Information", "Your advance has been made successfully.");
+            }
+            catch (Exception e) {
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.showErrorMessage("Error", e.getMessage());
+            }
         });
     }
 
     @FXML
     private void buttonBalance(ActionEvent event) {
-        String productId = actualProducts.get(typeOfProducts.getValue()).getId();
-        double balance = Services.getProductSearcher().getUniqueProductById(productId).getBalance();
-        Optional<String> result = showTextInputDialog("Enter the amount to advance", "Advance", "Please enter the amount to advance:");
-        if (result.isPresent() && !result.get().isEmpty()) {
-            try {
-                double advanceAmount = Double.parseDouble(result.get());
-                if (validateTransactionAmount(advanceAmount)) {
-                    balance = Services.getProductSearcher().getUniqueProductById(productId).getBalance();
-                    MessageWindow messageWindow = new MessageWindow();
-                    messageWindow.showSuccessMessage("Information", "Your product ID: " + productId + "\nYour balance: " + balance);
-                } else {
-                    MessageWindow messageWindow = new MessageWindow();
-                    messageWindow.showErrorMessage("Error", "Invalid advance amount. Please enter a valid amount.");
-                }
-            } catch (NumberFormatException e) {
-                MessageWindow messageWindow = new MessageWindow();
-                messageWindow.showErrorMessage("Error", "Invalid input. Please enter a valid number for the advance amount.");
-            }
-        } else {
-            MessageWindow messageWindow = new MessageWindow();
-            messageWindow.showErrorMessage("Error", "Please enter a valid amount to advance.");
-        }
+        MessageWindow messageWindow = new MessageWindow();
+        messageWindow.showSuccessMessage("Information", "Your balance is: " + selectedProduct.getBalance());
     }
 
 
@@ -194,8 +208,9 @@ public class transferenstController {
             try {
                 double buyAmount = Double.parseDouble(result.get());
                 if (validateTransactionAmount(buyAmount)) {
-                    String productId = actualProducts.get(typeOfProducts.getValue()).getId();
+                    String productId = selectedProduct.getId();
                     Services.getTransactionService().withdraw(userToken,productId, buyAmount);
+                    updateSelectedProduct();
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.showSuccessMessage("Information", "Your buy has been made successfully.");
                 } else {
@@ -204,7 +219,7 @@ public class transferenstController {
                 }
             } catch (NumberFormatException e) {
                 MessageWindow messageWindow = new MessageWindow();
-                messageWindow.showErrorMessage("Error", "Invalid input. Please enter a valid number for the buy amount.");
+                messageWindow.showErrorMessage("Error", e.getMessage());
             }
         } else {
             MessageWindow messageWindow = new MessageWindow();
@@ -220,17 +235,15 @@ public class transferenstController {
             try {
                 double depositAmount = Double.parseDouble(result.get());
                 if (validateTransactionAmount(depositAmount)) {
-                    String productId = actualProducts.get(typeOfProducts.getValue()).getId();
-                    Services.getTransactionService().deposit(userToken,productId, depositAmount);
-                    MessageWindow messageWindow = new MessageWindow();
-                    messageWindow.showSuccessMessage("Information", "Your deposit has been made successfully.");
+                    Services.getTransactionService().deposit(userToken,selectedProduct.getId(), depositAmount);
+                    updateSelectedProduct();
                 } else {
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.showErrorMessage("Error", "Invalid deposit amount. Please enter a valid amount.");
                 }
             } catch (NumberFormatException e) {
                 MessageWindow messageWindow = new MessageWindow();
-                messageWindow.showErrorMessage("Error", "Invalid input. Please enter a valid number for the deposit amount.");
+                messageWindow.showErrorMessage("Error", e.getMessage());
             }
         } else {
             MessageWindow messageWindow = new MessageWindow();
@@ -246,8 +259,9 @@ public class transferenstController {
             try {
                 double paymentAmount = Double.parseDouble(result.get());
                 if (validateTransactionAmount(paymentAmount)) {
-                    String productId = actualProducts.get(typeOfProducts.getValue()).getId();
+                    String productId = selectedProduct.getId();
                     Services.getTransactionService().deposit(userToken,productId, paymentAmount);
+                    updateSelectedProduct();
                     MessageWindow messageWindow = new MessageWindow();
                     messageWindow.showSuccessMessage("Information", "Your payment has been made successfully.");
                 } else {
@@ -283,34 +297,18 @@ public class transferenstController {
     private void buttonWithdrawals(ActionEvent event) {
         Optional<String> result = showTextInputDialog("Enter the amount to withdraw", "Withdraw", "Please enter the amount to withdraw:");
         result.ifPresent(amount -> {
-            String productId = actualProducts.get(typeOfProducts.getValue()).getId();
-            Services.getTransactionService().withdraw(userToken,productId, Double.parseDouble(amount));
+            try {
+                String productId = selectedProduct.getId();
+                Services.getTransactionService().withdraw(userToken,productId, Double.parseDouble(amount));
+            }   catch (Exception e) {
+                MessageWindow messageWindow = new MessageWindow();
+                messageWindow.showErrorMessage("Error", e.getMessage());
+                return;
+            }
             MessageWindow messageWindow = new MessageWindow();
             messageWindow.showSuccessMessage("Information", "Your withdrawal has been made successfully.");
+            updateSelectedProduct();
         });
-    }
-
-    private void loadProductsForClient(Token userToken) {
-        try {
-            Set<Product> productList = Services.getProductSearcher().getProductsByUniqueOwner(userToken.getClientId());
-
-            String[] productNames = new String[productList.size()];
-
-            int i = 0;
-            for (Product product : productList) {
-                ProductType productType = ProductType.getProductType(product);
-                String productName = Objects.equals(productType.getName(), ProductType.UninitializedProduct.getName()) ?
-                ((UninitializedProduct) product).getProductType().getName() : productType.getName();
-                productNames[i] = productName;
-                actualProducts.put(productName, product);
-                i++;
-            }
-
-            typeOfProducts.getItems().clear();
-            typeOfProducts.getItems().addAll(productNames);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public static Optional<String> showTextInputDialog(String promptText, String title, String headerText) {
@@ -336,8 +334,6 @@ public class transferenstController {
 
         return result.flatMap(buttonType -> {
             if (buttonType == okButton) {
-                MessageWindow messageWindow = new MessageWindow();
-                messageWindow.showSuccessMessage("Information", "Your password has been changed successfully.");
                 return Optional.ofNullable(textField.getText());
             } else {
                 return Optional.empty();

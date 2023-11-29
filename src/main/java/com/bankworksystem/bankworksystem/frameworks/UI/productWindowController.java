@@ -136,6 +136,8 @@ public class productWindowController {
     private void initializeProduct(UninitializedProduct product) {
         ProductType productType = product.getProductType();
 
+        String productId = product.getId();
+
         switch (productType) {
             case CDT:
                 Services.getProductCreationService().initializeCDT(product.getId(), convertLocalDateToDate(date.getValue()), Integer.parseInt(termInMonths.getText()));
@@ -149,6 +151,9 @@ public class productWindowController {
                 Services.getProductCreationService().initializeAccount(product.getId(), convertLocalDateToDate(date.getValue()));
                 break;
         }
+
+        Services.getProductModificationService().modifyProductBalance(productId, Double.parseDouble(balance.getText()));
+
         messageWindow.showSuccessMessage("Success", "Product created");
 
         loadClientProducts(actualClientId);
