@@ -170,31 +170,6 @@ public class seeAllProductsController {
     }
 
     @FXML
-    private void selectedRowTable() {
-        tableView.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 1) {
-                Product selectedProduct = tableView.getSelectionModel().getSelectedItem();
-
-                if (selectedProduct != null) {
-                    String ownerId = selectedProduct.getOwnerId();
-
-                    loadClientImage(ownerId);
-                }
-            }
-        });
-    }
-
-    private void loadClientImage(String clientId) {
-        Image clientImage = getClientImage(clientId);
-        selectedUserImages.setImage(clientImage);
-    }
-    private Image getClientImage(String clientId) {
-        Path imagePath = Services.getImagePersistence().searchImageByClientId(clientId);
-        File file = imagePath.toFile();
-        return new Image(file.toURI().toString());
-    }
-
-    @FXML
     private void buttonImgPrincipalWindow(MouseEvent event) {
         String fxml = "initWindow.fxml";
         Node sourceNode = (Node) event.getSource();
